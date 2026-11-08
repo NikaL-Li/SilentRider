@@ -1,0 +1,22 @@
+# 运行时数据 / 密钥
+data/
+.env
+sample.wav
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 本地 OCR 服务密钥与虚拟环境
+ocr-service/ocr_token.txt
+ocr-service/.venv/
+ocr-service/__pycache__/
+
+# 本地发布包/截图
+*.zip
+docs/screenshots/*.local.*

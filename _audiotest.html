@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><pre id="out">x</pre><iframe id="f" src="/?audio=1" style="width:390px;height:844px"></iframe>
+<script>
+const L=[];const out=document.getElementById('out');function p(k,v){L.push(k+'='+v);out.textContent=L.join('\n');}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{try{
+ const f=document.getElementById('f');await new Promise(r=>f.onload=r);const w=f.contentWindow,d=f.contentDocument;await wait(400);
+ const plays=[];const pauses=[];
+ function FakeAudio(url){this.url=url;this.currentTime=0;this.onended=null;}
+ FakeAudio.prototype.play=function(){plays.push(this.url);return Promise.resolve();};
+ FakeAudio.prototype.pause=function(){pauses.push(this.url);};
+ w.Audio=FakeAudio;
+ w.fetch=function(url){
+   const text=decodeURIComponent(String(url).split('text=')[1].split('&')[0]);
+   const delay=text==='A'?120:text==='B'?60:10;
+   return new Promise(resolve=>setTimeout(()=>resolve(new w.Response(new w.Blob(['x'],{type:'audio/wav'}),{status:200})),delay));
+ };
+ w.speak('A'); w.speak('B'); w.speak('C');
+ await wait(600);
+ p('plays',plays.length); p('pauses',pauses.length); p('done','OK');
+}catch(e){p('ERROR',(e&&(e.stack||e.message))||String(e));}})();
+</script></body></html>

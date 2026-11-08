@@ -1,0 +1,40 @@
+[Unit]
+Description=YiLuChangTong (译路畅通) web service
+Documentation=file:/opt/ylct/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ylct
+Group=ylct
+WorkingDirectory=/opt/ylct
+EnvironmentFile=/opt/ylct/.env
+ExecStart=/usr/bin/python3 /opt/ylct/server.py
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+
+# ── 最小权限 ──
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/ylct
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+# 文件描述符/进程数上限
+LimitNOFILE=65535
+TasksMax=256
+
+[Install]
+WantedBy=multi-user.target

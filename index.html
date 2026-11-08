@@ -7,7 +7,9 @@
 <meta name="description" content="译路畅通 · 听障骑手实时语音交互助手：听对方说、给一句能念的回复、举牌给对方看。">
 <meta name="theme-color" content="#1D5FDB">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="译路畅通">
@@ -53,8 +55,8 @@
     transition:opacity .3s ease, transform .3s ease;overflow-y:auto;
   }
   .page.gone{opacity:0;pointer-events:none}
-  #addrPage,#pickupPage{transform:translateX(26px);opacity:0;pointer-events:none}
-  #addrPage.on,#pickupPage.on{transform:none;opacity:1;pointer-events:auto}
+  #addrPage,#pickupPage{transform:translateX(26px);opacity:0;pointer-events:none;visibility:hidden}
+  #addrPage.on,#pickupPage.on{transform:none;opacity:1;pointer-events:auto;visibility:visible}
   #addrPage .cta,#pickupPage .cta{margin-top:auto}
   .page.hidden{display:none}
 
@@ -144,6 +146,7 @@
   .previewText{cursor:pointer}
   .previewText{font-size:14px;line-height:1.6;color:#2A3B4D;font-weight:600}
   .previewText em{font-style:normal;color:#2563C9}
+  .previewEmpty{color:#93A6BC;font-weight:400;font-size:12.5px;line-height:1.6}
 
   .note{
     align-self:center;text-align:center;line-height:1.6;
@@ -152,20 +155,19 @@
   }
   .note span{font-size:11px;color:#97ABC2;letter-spacing:.5px}
   .signLink{
-    flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-start;gap:5px;
-    background:#fff;border:1px solid rgba(16,32,64,.07);border-radius:16px;
-    padding:14px 15px;font-family:inherit;box-shadow:0 1px 2px rgba(16,32,64,.03), 0 10px 22px rgba(16,32,64,.05);
+    position:relative;flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+    gap:2px;width:100%;min-height:140px;text-align:left;
+    background:linear-gradient(135deg,#F7FBFF 0%,#E3F0FF 100%);
+    border:1px solid #B9D4F8;border-radius:20px;
+    padding:18px 20px 30px;font-family:inherit;
+    box-shadow:0 2px 4px rgba(16,32,64,.04), 0 14px 30px rgba(29,95,219,.10);
   }
-  .signLink b{font-size:13px;color:#1D5FDB;font-weight:600;letter-spacing:.3px}
-  .signLink span{font-size:11.5px;color:#7E92A9;letter-spacing:.2px;line-height:1.65}
-  .signLink i{
-    display:block;font-style:normal;margin-top:5px;
-    font-size:11.5px;color:#3C5F8F;letter-spacing:.2px;
-    background:#F2F8FF;border:1px solid #DFEAFA;border-radius:10px;
-    padding:7px 10px;line-height:1.5;
-  }
-  .signLink:active{background:#F7FBFF}
-  .cta{margin-top:6px;display:flex;flex-direction:column;gap:6px;padding-top:6px}
+  .signLink .signKicker{font-size:11px;color:#5D7FA8;letter-spacing:1.4px;line-height:1.4}
+  .signLink b{font-size:28px;line-height:1.22;color:#123C7A;font-weight:800;letter-spacing:1px;margin-top:4px}
+  .signLink .signSub{font-size:18px;line-height:1.35;color:#1D5FDB;font-weight:700;letter-spacing:1.2px}
+  .signLink .signGo{position:absolute;left:20px;bottom:10px;font-size:10.5px;color:#7E92A9;letter-spacing:.3px}
+  .signLink:active{transform:scale(.995);background:linear-gradient(135deg,#EEF7FF 0%,#D8E9FF 100%)}
+  .cta{margin-top:auto;display:flex;flex-direction:column;gap:6px;padding-top:6px}
   .installLink{
     border:0;background:transparent;color:#7E96B6;font-size:11px;font-family:inherit;
     letter-spacing:.2px;padding:2px 0 0;text-decoration:underline;text-underline-offset:3px;
@@ -220,15 +222,15 @@
   }
   .note .noteText.fade{opacity:0}
   .note .noteTail{font-size:10.5px;color:#A2B2C6;letter-spacing:.4px}
-  .modeRow{display:flex;gap:10px;margin-top:auto}
+  .modeRow{display:flex;gap:10px;margin-top:8px}
   .modeCard{
-    flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;
-    background:#fff;border:1px solid var(--line);border-radius:20px;padding:13px 10px 12px;
+    flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    min-height:66px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:12px;
     font-family:inherit;box-shadow:0 10px 24px rgba(30,74,140,.09);transition:.15s;
   }
   .modeCard:active{transform:scale(.985)}
   .modeCard .modeIcon{font-size:24px;line-height:1.2}
-  .modeCard b{font-size:18px;letter-spacing:1px;color:var(--ink)}
+  .modeCard b{font-size:20px;letter-spacing:1px;color:var(--ink)}
   .modeCard small{font-size:11px;color:var(--muted);letter-spacing:.3px}
   .modeCard#modeDeliver{border-color:#B7D4FB;background:linear-gradient(160deg,#F5FAFF,#E7F1FF)}
   .modeCard#modePickup{border-color:#BFE6F7;background:linear-gradient(160deg,#F3FCFF,#E2F5FD)}
@@ -236,6 +238,12 @@
 
 
   #home > *{position:relative;z-index:1}
+  /* 语音切换要固定在右上角，不能被上面的 #home > * 改成 relative */
+  #home{padding-top:calc(env(safe-area-inset-top) + 60px)}
+  #home > .voiceToggle{position:absolute;z-index:20;flex:0 0 auto;height:36px}
+  @media (max-width:360px){
+    #home > .voiceToggle{height:32px}
+  }
 
   /* ── 启动页：山东大图 + 天气 ── */
   .heroCard{
@@ -249,8 +257,8 @@
   }
   .slide.on{opacity:1}
   .heroCap{
-    position:absolute;right:0;top:-22px;font-size:9.5px;color:rgba(255,255,255,.8);
-    letter-spacing:.5px;text-shadow:0 1px 6px rgba(0,0,0,.55);
+    position:absolute;right:0;bottom:-12px;top:auto;font-size:9.5px;color:rgba(255,255,255,.8);
+    letter-spacing:.5px;text-shadow:0 1px 6px rgba(0,0,0,.55);text-align:right;
   }
   .heroProg{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.16)}
   .heroProg i{display:block;height:100%;width:100%;background:rgba(255,255,255,.9);transform:scaleX(0);transform-origin:left;animation:prog 5s linear infinite}
@@ -358,7 +366,7 @@
   .todayChip:active{background:#E4EFFF}
 
   .finishLink{
-    flex:0 0 auto;margin:0 auto 9px;display:flex;align-items:center;gap:6px;
+    flex:0 0 auto;margin:0 auto 2px;display:flex;align-items:center;gap:6px;
     border:1px solid #A9CDFA;background:#E8F2FF;color:#1D5FDB;
     border-radius:999px;padding:9px 18px;font-size:12.5px;font-family:inherit;
     font-weight:600;letter-spacing:.3px;box-shadow:0 3px 12px rgba(29,95,219,.12);
@@ -378,7 +386,18 @@
   .recLine{font-size:13px;color:#1D5FDB;font-weight:600;letter-spacing:.3px}
   .recDetail{margin-top:8px;font-size:11px;color:#93A3B5;letter-spacing:.2px}
 
-  .recList{margin-top:14px;display:flex;flex-direction:column;gap:7px}
+  .recSummary{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;
+  }
+  .recSummary > div{
+    background:#fff;border:1px solid rgba(16,32,64,.07);border-radius:14px;
+    padding:11px 8px;text-align:center;box-shadow:0 6px 16px rgba(30,74,140,.04);
+  }
+  .recSummary span{display:block;font-size:10.5px;color:#93A3B5;letter-spacing:.4px}
+  .recSummary b{display:inline-block;margin-top:3px;font-size:23px;line-height:1.1;color:#123C7A;font-weight:800}
+  .recSummary i{font-style:normal;font-size:10px;color:#A6B6C8;margin-left:2px}
+  .recListTitle{font-size:10.5px;color:#93A3B5;letter-spacing:1px;margin:16px 4px 0}
+  .recList{margin-top:8px;display:flex;flex-direction:column;gap:7px}
   .recRow{
     display:flex;align-items:center;gap:10px;background:#fff;
     border:1px solid rgba(16,32,64,.06);border-radius:12px;padding:11px 14px;
@@ -618,11 +637,12 @@
     font-weight:700;box-shadow:0 8px 18px rgba(37,99,200,.24);
   }
   .actions{
-    display:flex;gap:10px;flex:0 0 auto;
+    display:flex;flex-direction:column;gap:7px;flex:0 0 auto;
     position:sticky;bottom:0;z-index:3;
     padding:8px 0 calc(env(safe-area-inset-bottom) + 4px);
     background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.94) 45%, rgba(255,255,255,.99) 100%);
   }
+  .actionRow{display:flex;gap:10px;align-items:stretch}
   .mic{
     flex:1;min-width:0;border:0;border-radius:19px;padding:17px;font-size:17px;font-weight:800;
     font-family:inherit;color:#fff;background:linear-gradient(145deg,#4A93FF,#1E5FD8);
@@ -849,7 +869,265 @@
     .signSub{font-size:clamp(18px,4vh,42px)}
     .signWhere{margin-top:1.8vh}
     .signHelp{margin-top:1.6vh}
-  }</style>
+  }
+
+  /* ══════════ 账号 / 登录（新增） ══════════ */
+  .acctChip{
+    margin-left:8px;border:1px solid #CFE3FA;background:#fff;color:#1D5FDB;
+    border-radius:999px;padding:3px 10px;font-size:10.5px;font-family:inherit;
+    font-weight:700;letter-spacing:.2px;vertical-align:1px;display:inline-flex;
+    align-items:center;gap:4px;box-shadow:0 2px 8px rgba(29,95,219,.07);
+  }
+  .acctChip::before{content:'';width:5px;height:5px;border-radius:50%;background:#B9C9DD}
+  .acctChip.on{color:#0B7A67;border-color:#B6E3D9;background:#F0FBF8}
+  .acctChip.on::before{background:#12B3A0}
+  .acctChip:active{transform:scale(.97)}
+
+  #accountPage{transform:translateX(26px);opacity:0;pointer-events:none}
+  #accountPage.on{transform:none;opacity:1;pointer-events:auto}
+  #accountPage .cta{margin-top:auto}
+  .authCard{
+    background:#fff;border:1px solid rgba(16,32,64,.07);border-radius:20px;
+    padding:16px;box-shadow:0 8px 24px rgba(16,32,64,.06);
+  }
+  .authTabs{display:flex;background:#F1F7FF;border-radius:14px;padding:4px;gap:4px;margin-bottom:14px}
+  .authTab{
+    flex:1;border:0;background:transparent;color:#61758C;border-radius:11px;
+    padding:9px 0;font-size:13px;font-family:inherit;font-weight:700;letter-spacing:.3px;
+  }
+  .authTab.on{background:#fff;color:#1D5FDB;box-shadow:0 2px 8px rgba(29,95,219,.12)}
+  .authField{display:flex;flex-direction:column;gap:6px;margin-bottom:11px}
+  .authField[hidden]{display:none}
+  .authField > span{font-size:11px;color:#7E96B4;letter-spacing:1.4px;padding-left:2px}
+  .authField input{
+    width:100%;border:1px solid #DCE9FA;border-radius:14px;padding:13px 14px;
+    font-size:16px;font-family:inherit;background:#F9FCFF;color:var(--ink);outline:none;
+  }
+  .authField input:focus{border-color:#93C0F5;background:#fff}
+  .authPwd{position:relative;display:flex;align-items:center}
+  .authPwd input{padding-right:58px}
+  .eye{
+    position:absolute;right:6px;border:0;background:transparent;color:#1D5FDB;
+    font-size:11.5px;font-family:inherit;font-weight:600;padding:8px 8px;
+  }
+  .authErr{
+    min-height:17px;font-size:11.5px;line-height:1.4;color:#D14343;
+    padding:0 2px 7px;letter-spacing:.2px;
+  }
+  .authSubmit{width:100%;padding:15px;font-size:16px;border-radius:16px}
+  .authSubmit[disabled]{opacity:.55;box-shadow:none}
+  .authLinks{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px;flex-wrap:wrap}
+  .authLinks .linkBtn{font-size:12px;color:#5D7FA8;padding:4px 2px}
+  .authLegal{font-size:10.5px;color:#9AAABD;line-height:1.55;margin:10px 2px 0;letter-spacing:.2px}
+  .authLegal b{color:#5D7FA8;font-weight:600}
+  .smsRow{display:flex;gap:8px}
+  .smsRow input{flex:1;min-width:0}
+  .smsSend{
+    flex:0 0 104px;border:1px solid #BBD7FB;background:#F0F7FF;border-radius:14px;
+    color:#1D5FDB;font-size:12.5px;font-family:inherit;font-weight:700;letter-spacing:.2px;
+  }
+  .smsSend[disabled]{opacity:.55}
+  .authNoteLine{
+    display:flex;gap:8px;align-items:flex-start;background:#F5FAFF;border:1px solid #E3EDFB;
+    border-radius:12px;padding:9px 11px;font-size:11px;color:#61758C;line-height:1.55;margin:0 0 12px;
+  }
+  .authNoteLine b{color:#1D5FDB}
+
+  .acctHead{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .acctAvatar{
+    width:52px;height:52px;border-radius:18px;flex:0 0 auto;
+    background:linear-gradient(145deg,#4A93FF,#1E5FD8);color:#fff;
+    display:grid;place-items:center;font-size:21px;font-weight:800;
+    box-shadow:0 8px 18px rgba(37,99,200,.24);
+  }
+  .acctHead b{display:block;font-size:17px;letter-spacing:.3px;margin-bottom:3px}
+  .acctHead p{margin:0;font-size:11.5px;color:#7E96B4;letter-spacing:.4px}
+  .acctStats{display:flex;gap:8px;margin-bottom:12px}
+  .acctStat{
+    flex:1;background:#F6FAFF;border:1px solid #E7F0FC;border-radius:14px;
+    padding:10px 8px;text-align:center;
+  }
+  .acctStat b{display:block;font-size:19px;color:#1D5FDB;line-height:1.15}
+  .acctStat span{font-size:10.5px;color:#7E96B4;letter-spacing:.4px}
+  .acctRow{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:11px 2px;border-top:1px solid #EEF4FC;font-size:12.5px;color:#4C6480;
+  }
+  .acctRow i{font-style:normal;font-size:11.5px;color:#0B7A67;font-weight:600}
+  .acctRow i.off{color:#93A3B5}
+  .acctActions{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+  .acctActions .secondary{padding:13px;font-size:14px;border-radius:14px}
+  .acctDanger{border:0;background:transparent;color:#C65A4A;font-size:12.5px;font-family:inherit;padding:9px}
+  .acctFoot{font-size:10.5px;color:#9AAABD;line-height:1.6;text-align:center;margin:12px 4px 0}
+
+  /* 地址自动补全 */
+  .suggestBox{display:none;flex-direction:column;gap:1px;margin-top:6px;
+    background:#fff;border:1px solid #DCE9FA;border-radius:14px;overflow:hidden;
+    box-shadow:0 12px 28px rgba(30,74,140,.14);z-index:6}
+  .suggestBox.on{display:flex}
+  .suggestItem{
+    display:flex;align-items:center;gap:8px;width:100%;text-align:left;
+    border:0;background:#fff;padding:10px 12px;font-family:inherit;color:var(--ink);
+    font-size:13px;letter-spacing:.2px;
+  }
+  .suggestItem:hover,.suggestItem:active{background:#F2F8FF}
+  .suggestItem b{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .suggestItem small{margin-left:auto;flex:0 0 auto;font-size:10.5px;color:#8FA2B8;letter-spacing:.1px}
+  .suggestHint{
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 2px 0;
+    background:#F0FBF8;border:1px solid #C9EDE5;border-radius:12px;padding:8px 10px;
+    font-size:11.5px;color:#0B7A67;line-height:1.45;
+  }
+  .suggestHint[hidden]{display:none}
+  .suggestHint button{
+    border:0;background:#12B3A0;color:#fff;border-radius:999px;padding:4px 10px;
+    font-size:11px;font-family:inherit;font-weight:700;letter-spacing:.2px;
+  }
+  .recentAddr{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .recentAddr:empty{display:none}
+  .addrChip{
+    border:1px solid #DCE9FA;background:#F7FBFF;color:#3C5B7E;border-radius:999px;
+    padding:5px 10px;font-size:11px;font-family:inherit;letter-spacing:.1px;
+    max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .addrChip:active{background:#E8F2FF}
+  .addrChip small{color:#8FA2B8;font-size:10px;margin-left:3px}
+  .pkLast{
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px;
+    background:#F4F9FF;border:1px solid #E3EDFB;border-radius:12px;padding:8px 10px;
+    font-size:11.5px;color:#5D7FA8;
+  }
+  .pkLast[hidden]{display:none}
+  .pkLast button{
+    border:0;background:#1D5FDB;color:#fff;border-radius:999px;padding:4px 10px;
+    font-size:11px;font-family:inherit;font-weight:700;
+  }
+
+  /* 电话播报 */
+  .callSheet{max-height:86vh;overflow-y:auto;overscroll-behavior:contain}
+  .callHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .callHead b{font-size:17px;letter-spacing:.3px}
+  .callClose{border:0;background:#F1F7FF;color:#5D7FA8;width:30px;height:30px;border-radius:50%;
+    font-size:15px;font-family:inherit;line-height:1;flex:0 0 auto}
+  .callIntro{font-size:12px;color:#5D7FA8;line-height:1.6;margin:0 0 10px}
+  .callDialRow{display:flex;gap:8px;margin-bottom:8px}
+  .callDialRow input{
+    flex:1;min-width:0;border:1px solid #DCE9FA;border-radius:14px;padding:12px;
+    font-size:16px;font-family:inherit;background:#F9FCFF;outline:none;
+  }
+  .callDialBtn{
+    flex:0 0 70px;display:grid;place-items:center;text-decoration:none;
+    background:linear-gradient(145deg,#22C55E,#15803D);color:#fff;border-radius:14px;
+    font-size:14px;font-weight:700;letter-spacing:.5px;box-shadow:0 6px 16px rgba(21,128,61,.22);
+  }
+  .callSteps{
+    display:flex;gap:6px;flex-wrap:wrap;margin:0 0 11px;
+  }
+  .callSteps span{
+    font-size:10.5px;color:#0B7A67;background:#F0FBF8;border:1px solid #C9EDE5;
+    border-radius:999px;padding:4px 9px;letter-spacing:.2px;
+  }
+  .callPhrases{display:flex;flex-direction:column;gap:7px;max-height:34vh;overflow-y:auto;
+    padding:2px;margin-bottom:8px}
+  .callPhrase{
+    display:flex;align-items:center;gap:9px;text-align:left;width:100%;
+    border:1px solid #DCE9FA;background:#fff;border-radius:13px;padding:10px 12px;
+    font-family:inherit;font-size:13.5px;line-height:1.45;color:var(--ink);
+  }
+  .callPhrase .sp{
+    flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+    background:#E8F2FF;color:#1D5FDB;font-size:11px;
+  }
+  .callPhrase:active{background:#F2F8FF;transform:scale(.995)}
+  /* .sheet button 有通用大按钮样式，这里必须提高优先级，避免句子被拉成大块 */
+  .sheet .callPhrase{
+    flex:0 0 auto;width:100%;border:1px solid #DCE9FA;border-radius:13px;
+    padding:10px 12px;font-size:13.5px;font-weight:400;line-height:1.45;
+    color:var(--ink);background:#fff;
+  }
+  .sheet .callClose{
+    flex:0 0 auto;width:30px;height:30px;padding:0;border:0;border-radius:50%;
+    background:#F1F7FF;color:#5D7FA8;font-size:15px;font-weight:400;line-height:1;
+  }
+  .sheet .linkBtn{
+    flex:0 0 auto;border:0;background:transparent;color:#8FA2B8;
+    font-size:12.5px;font-weight:400;padding:6px 0;text-align:left;
+  }
+  .callWarn{
+    font-size:10.5px;line-height:1.6;color:#9A6B1E;background:#FFFAEC;
+    border:1px dashed #F0B429;border-radius:12px;padding:8px 10px;margin:10px 0 0;
+  }
+  .callCloud{border-top:1px solid #EEF4FC;margin-top:12px;padding-top:12px}
+  .callCloudT{font-size:12.5px;font-weight:700;color:#1D5FDB;margin-bottom:4px}
+  .callCloud p{font-size:11px;color:#7E96B4;line-height:1.55;margin:0 0 8px}
+  .callCloud .secondary{width:100%;padding:12px;font-size:13px;border-radius:14px}
+  .recSyncNote{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
+    font-size:11.5px;color:#7E96B4;margin:10px 0 0;text-align:center}
+  .recSyncNote button{border:0;background:transparent;color:#1D5FDB;font-size:11.5px;
+    font-family:inherit;font-weight:600;padding:2px}
+
+  /* ── 对话页长文本 / 顶栏 / 底栏修复（交叉验证 P1） ── */
+  .pill,.ghost{white-space:nowrap;flex:0 0 auto}
+  #heardCard.card{height:auto;min-height:96px;max-height:46vh;overflow:hidden}
+  #heard{max-height:32vh;overflow-y:auto}
+  .app.tight #heardCard.card{height:auto;min-height:86px}
+  .app.tighter #heardCard.card{height:auto;min-height:68px}
+  #app .actions .finishLink{margin:0 auto 2px}
+  @media (max-width:480px){
+    header{gap:6px}
+    header .titles p{display:none}
+    #demoBtn{display:none}
+    .titles h1{font-size:17px}
+    .pill{padding:6px 9px;font-size:11px}
+    .ghost{padding:6px 9px;font-size:11px}
+  }
+  /* 低对比度小字提亮（WCAG 方向） */
+  .greet{color:#8B6B45}
+  .authLegal{color:#6B7F96}
+  .recNote{color:#61758C}
+  .field > span{color:#5F7894}
+
+  /* ── 截图识别 / 粘贴兜底 ── */
+  .importBox{display:flex;flex-direction:column;gap:7px}
+  .shotBtn{
+    display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+    border:1px solid #B7D3F7;border-radius:16px;padding:13px 14px;
+    background:linear-gradient(160deg,#F7FBFF,#E8F2FF);color:#1D5FDB;
+    font-family:inherit;box-shadow:0 6px 16px rgba(29,95,219,.10);
+  }
+  .shotBtn:active{transform:scale(.99);background:#E4EFFF}
+  .shotBtn .shotIcon{
+    flex:0 0 auto;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+    background:linear-gradient(145deg,#4A93FF,#1E5FD8);color:#fff;font-size:17px;
+    box-shadow:0 6px 14px rgba(37,99,200,.24);
+  }
+  .shotBtn .shotText{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .shotBtn .shotText b{font-size:14px;letter-spacing:.3px}
+  .shotBtn .shotText small{font-size:10.5px;color:#6E8199;font-weight:400}
+  .shotBtn .shotTag{
+    flex:0 0 auto;background:#12B3A0;color:#fff;border-radius:999px;padding:3px 8px;
+    font-size:10px;font-weight:700;letter-spacing:.3px;
+  }
+  .shotBtn[disabled]{opacity:.6;pointer-events:none}
+  .pasteBtn.fallback{
+    padding:9px 0;font-size:12px;background:transparent;border-color:#D5E4F7;
+    color:#7E92A9;margin:0;font-weight:500;
+  }
+  .pasteBtn.fallback:active{background:#F3F8FF}
+  .pasteHint{
+    margin:-2px 0 9px;padding:8px 10px;border-radius:11px;
+    background:#F0FBF8;border:1px solid #C9EDE5;color:#0B7A67;
+    font-size:11.5px;line-height:1.5;
+  }
+  .pasteHint[hidden]{display:none}
+  .ocrSheet{max-height:88vh;overflow-y:auto}
+  .ocrPreview{
+    display:block;width:100%;max-height:42vh;object-fit:contain;
+    border-radius:14px;background:#F5FAFF;border:1px solid #E3EDFB;margin:2px 0 10px;
+  }
+  .ocrStatus{font-size:12px;color:#5D7FA8;line-height:1.6;margin:0 2px}
+  .heroCity{cursor:pointer}
+</style>
 </head>
 <body>
 <div class="ambient" id="ambient"></div>
@@ -859,7 +1137,7 @@
      已按 16:10 裁切压缩并以 base64 内嵌，因此单文件离线可用 -->
 <!-- ════ 1. 启动页 ════ -->
 <section class="page" id="home">
-<div class="voiceToggle female" id="voiceToggle" role="switch" aria-checked="true" title="切换男声 / 女声">
+<div class="voiceToggle female" id="voiceToggle" role="switch" tabindex="0" aria-checked="true" aria-label="切换男声女声" title="切换男声 / 女声">
   <span class="vtKnob"></span>
   <span class="vtLabel vtMale">男声</span>
   <span class="vtLabel vtFemale">女声</span>
@@ -867,6 +1145,7 @@
 <div class="greetWrap">
   <div class="greet" id="greet">下午好 · 今天也辛苦了<span id="verTag" style="display:none">v3</span></div>
   <button class="todayChip" id="todayBtn">今日 0 单 ›</button>
+  <button class="acctChip" id="acctBtn" title="登录后把记录存到云端">登录</button>
 </div>
 
   <div class="heroCard">
@@ -879,55 +1158,37 @@
   </div>
     <div class="heroScrim"></div>
     <div class="heroTop">
-      <span class="heroCity">济南 · 山东</span>
-      <span class="heroTemp" id="wxTemp">14°</span>
+      <span class="heroCity" id="heroCity" title="已记住城市 · 点一下重新定位">定位中…</span>
+      <span class="heroTemp" id="wxTemp">--°</span>
     </div>
     <div class="heroBottom">
       <h1 class="heroName">译路畅通</h1>
-      <p class="heroTag">把你要说的话，替你送到对方耳朵里</p>
-      <div class="heroCap" id="heroCap">泰山日出</div>
+      <div class="heroCap" id="heroCap">城市风景</div>
       <div class="wxRow">
         
-        <span id="wxIcon">☀️</span>
-        <span id="wxDesc">晴</span>
+        <span id="wxIcon">🌤️</span>
+        <span id="wxDesc">定位中</span>
         <span class="wxDot"></span>
-        <span id="wxHum">湿度 40%</span>
+        <span id="wxHum">湿度 --</span>
         <span class="wxDot"></span>
-        <span id="wxWind">风 17 km/h</span>
+        <span id="wxWind">风 --</span>
       </div>
     </div>
   </div>
 
   <div class="dayRow" id="dayRow"></div>
 
-  <div class="wxTip" id="wxTip">天气不错，跑单顺路</div>
-
-  <div class="steps">
-    <div class="step"><i>1</i><b>填地址</b><small>小区楼层房号</small></div>
-    <div class="stepLine"></div>
-    <div class="step"><i>2</i><b>听对方说</b><small>变成大字</small></div>
-    <div class="stepLine"></div>
-    <div class="step"><i>3</i><b>点一句播</b><small>替你开口</small></div>
-  </div>
-
-  <div class="note">
-    <span class="noteText" id="noteText">别急，慢慢来。</span><br>
-    <span class="noteTail">—— 给每一个赶时间的人</span>
-  </div>
+  <div class="wxTip" id="wxTip">定位后显示天气建议</div>
 
   <div class="modeRow">
-    <button class="modeCard" id="modeDeliver">
-      <b>送餐</b><small>跟顾客、门卫、保安说</small>
-    </button>
-    <button class="modeCard" id="modePickup">
-      <b>取餐</b><small>跟商家说</small>
-    </button>
+    <button class="modeCard" id="modeDeliver"><b>送餐</b></button>
+    <button class="modeCard" id="modePickup"><b>取餐</b></button>
   </div>
 
   <button class="signLink" id="signHomeBtn">
-    <b>举牌给对方看</b>
-    <span>对方听不明白、或不肯配合时，把手机横过来给他看</span>
-    <i>「我是听障骑手，请用文字和我沟通」</i>
+    <b>我是听障骑手</b>
+    <span class="signSub">请用文字沟通</span>
+    <span class="signGo">点开大字牌 ›</span>
   </button>
 
   <div class="cta">
@@ -949,29 +1210,38 @@
     <button class="backBtn" id="addrBack">←</button>
     <div>
       <h2>这一单送到哪</h2>
-      <p>填一次，对话页里的句子自动带上</p>
     </div>
     <button class="signMini" id="signAddrBtn">大字牌</button>
   </div>
 
   <div class="addrForm">
-    <button class="pasteBtn" id="pasteOrderBtn">
-      <span class="pasteIcon"></span>
-      粘贴识别订单
-    </button>
+    <div class="importBox">
+      <button class="shotBtn" id="shotOrderBtn" type="button">
+        <span class="shotIcon">▣</span>
+        <span class="shotText"><b>截图识别订单</b><small>从相册选订单截图，自动填地址</small></span>
+        <span class="shotTag">推荐</span>
+      </button>
+      <button class="pasteBtn fallback" id="pasteOrderBtn" type="button">
+        <span class="pasteIcon"></span>
+        粘贴识别
+      </button>
+      <input type="file" id="shotOrderInput" accept="image/png,image/jpeg,image/webp" hidden />
+    </div>
 
     <label class="field">
       <span>小区</span>
       <div class="fieldRow">
-        <input id="homeP" placeholder="阳光小区" />
+        <input id="homeP" placeholder="小区名称" autocomplete="off" />
         <button class="locBtn" id="navBtn">导航</button>
       </div>
-      <p class="navHint">点「导航」会跳到手机里的地图 App（高德 / 苹果地图）自动规划路线，不用在这儿看地图</p>
+      <div class="suggestBox" id="placeSuggest"></div>
+      <p class="suggestHint" id="placeHint" hidden></p>
+      <div class="recentAddr" id="recentAddrRow"></div>
     </label>
 
     <div class="twoCol">
-      <label class="field"><span>楼栋</span><input id="homeB" placeholder="3 号楼" /></label>
-      <label class="field"><span>房号</span><input id="homeR" placeholder="602" /></label>
+      <label class="field"><span>楼栋</span><input id="homeB" placeholder="楼栋" /></label>
+      <label class="field"><span>房号</span><input id="homeR" placeholder="房号" /></label>
     </div>
 
     <div class="field">
@@ -992,7 +1262,7 @@
 
   <div class="cta">
     <button class="primary" id="addrDone">进对话</button>
-    <button class="linkBtn" id="addrSkip">先不填，用默认地址</button>
+    <button class="linkBtn" id="addrSkip">跳过，直接进对话</button>
   </div>
 </section>
 
@@ -1002,22 +1272,40 @@
     <button class="backBtn" id="pickupBack">←</button>
     <div>
       <h2>取餐信息</h2>
-      <p>填一次，跟商家说的话自动带上</p>
     </div>
     <button class="signMini" id="signPickupBtn">大字牌</button>
   </div>
 
   <div class="addrForm">
-    <button class="pasteBtn" id="pastePickupBtn">
-      <span class="pasteIcon"></span>
-      粘贴识别单号
-    </button>
+    <div class="importBox">
+      <button class="shotBtn" id="shotPickupBtn" type="button">
+        <span class="shotIcon">▣</span>
+        <span class="shotText"><b>截图识别单号</b><small>从相册选取餐/订单截图，自动填尾号和取餐码</small></span>
+        <span class="shotTag">推荐</span>
+      </button>
+      <button class="pasteBtn fallback" id="pastePickupBtn" type="button">
+        <span class="pasteIcon"></span>
+        粘贴识别
+      </button>
+      <input type="file" id="shotPickupInput" accept="image/png,image/jpeg,image/webp" hidden />
+    </div>
+
+    <label class="field"><span>取餐点 / 商家</span>
+      <input id="pkShop" placeholder="商家名称" autocomplete="off" />
+      <div class="suggestBox" id="shopSuggest"></div>
+      <p class="suggestHint" id="shopHint" hidden></p>
+      <div class="recentAddr" id="recentPickupRow"></div>
+    </label>
+
+    <label class="field"><span>取货地址（选填）</span>
+      <input id="pkAddr" placeholder="取货点地址" autocomplete="off" />
+    </label>
 
     <label class="field"><span>手机号</span>
-      <input id="pkPhone" inputmode="numeric" maxlength="11" placeholder="13800135025" />
+      <input id="pkPhone" inputmode="numeric" maxlength="11" placeholder="手机尾号后四位" />
     </label>
     <label class="field"><span>取餐码 / 单号</span>
-      <input id="pkCode" placeholder="38" />
+      <input id="pkCode" placeholder="取餐码 / 单号" />
     </label>
   </div>
 
@@ -1032,7 +1320,7 @@
 
   <div class="cta">
     <button class="primary" id="pickupDone">进对话</button>
-    <button class="linkBtn" id="pickupSkip">先不填，用默认信息</button>
+    <button class="linkBtn" id="pickupSkip">跳过，直接进对话</button>
   </div>
 </section>
 
@@ -1043,6 +1331,7 @@
     <div class="logo">声</div>
     <div class="titles"><h1 class="appName">译路畅通</h1><p>骑手专用 · 对话助手</p></div>
     <span class="spacer"></span>
+    <button class="pill pillBtn" id="callBtn" title="打电话时让顾客听到">电话</button>
     <button class="pill pillBtn" id="signBtn">大字牌</button>
     <button class="ghost" id="demoBtn">演示</button>
   </header>
@@ -1085,12 +1374,13 @@
 
   <div class="scenes" id="scenes"></div>
 
-  <button class="finishLink" id="finishBtn"><b>✓</b>这单送完了</button>
-
   <div class="actions">
-    <button class="mic" id="mic">听对方说</button>
-    <button class="kbd" id="typeOtherBtn">对方说</button>
-    <button class="kbd" id="kbd">我要说</button>
+    <button class="finishLink" id="finishBtn"><b>✓</b>这单送完了</button>
+    <div class="actionRow">
+      <button class="mic" id="mic">听对方说</button>
+      <button class="kbd" id="typeOtherBtn">对方说</button>
+      <button class="kbd" id="kbd">我要说</button>
+    </div>
   </div>
 </div>
 
@@ -1099,7 +1389,6 @@
     <button class="backBtn" id="recBack">←</button>
     <div>
       <h2>送餐记录</h2>
-      <p>只记你在这里点过「送完了」的单</p>
     </div>
   </div>
 
@@ -1110,9 +1399,147 @@
     <div class="recDetail" id="recDetail"></div>
   </div>
 
+  <div class="recSummary">
+    <div><span>近 7 天</span><b id="recWeek">0</b><i>单</i></div>
+    <div><span>本月</span><b id="recMonth">0</b><i>单</i></div>
+    <div><span>今年</span><b id="recYear">0</b><i>单</i></div>
+  </div>
+
+  <div class="recListTitle">近 30 天每日记录</div>
   <div class="recList" id="recList"></div>
 
-  <p class="recNote">这个数字只统计你在译路畅通里点过「这单送完了」的单，跟平台后台不是一回事。</p>
+  <p class="recSyncNote" id="recSyncNote">
+    <button id="recLoginBtn">登录后同步记录 ›</button>
+  </p>
+</section>
+
+<!-- ════ 5. 账号页（登录 / 注册 / 资料） ════ -->
+<section class="page hidden" id="accountPage">
+  <div class="pageHead">
+    <button class="backBtn" id="acctBack">←</button>
+    <div>
+      <h2 id="acctTitle">登录</h2>
+    </div>
+  </div>
+
+  <!-- 未登录：登录 / 注册 / 验证码 -->
+  <div id="authForms">
+    <div class="authTabs" id="authTabs">
+      <button class="authTab on" data-tab="login">登录</button>
+      <button class="authTab" data-tab="register">注册</button>
+      <button class="authTab" data-tab="sms" id="smsTab" hidden>验证码</button>
+    </div>
+
+    <!-- 登录 -->
+    <div class="authCard" id="panelLogin">
+      <label class="authField"><span>手机号</span>
+        <input id="loginPhone" type="tel" inputmode="numeric" maxlength="11" autocomplete="tel" placeholder="11 位手机号" />
+      </label>
+      <label class="authField"><span>密码</span>
+        <div class="authPwd">
+          <input id="loginPwd" type="password" autocomplete="current-password" placeholder="至少 8 位" />
+          <button class="eye" type="button" data-eye="loginPwd">显示</button>
+        </div>
+      </label>
+      <div class="authErr" id="loginErr"></div>
+      <button class="primary authSubmit" id="loginBtn">登录</button>
+      <div class="authLinks">
+        <button class="linkBtn" id="toRegister">还没有账号？去注册</button>
+        <button class="linkBtn" id="forgotBtn">忘记密码</button>
+      </div>
+      <p class="authLegal">登录即表示同意 <b>《用户协议》</b> 与 <b>《隐私说明》</b>：手机号只用于登录和找回，地址与送餐记录只存在你的账号里，不会公开。</p>
+    </div>
+
+    <!-- 注册 -->
+    <div class="authCard" id="panelRegister" hidden>
+      <label class="authField"><span>昵称（可不填）</span>
+        <input id="regName" maxlength="16" autocomplete="nickname" placeholder="昵称" />
+      </label>
+      <label class="authField"><span>手机号</span>
+        <input id="regPhone" type="tel" inputmode="numeric" maxlength="11" autocomplete="tel" placeholder="11 位手机号" />
+      </label>
+      <label class="authField"><span>设置密码</span>
+        <div class="authPwd">
+          <input id="regPwd" type="password" autocomplete="new-password" placeholder="至少 8 位，建议字母 + 数字" />
+          <button class="eye" type="button" data-eye="regPwd">显示</button>
+        </div>
+      </label>
+      <label class="authField"><span>再输一次</span>
+        <input id="regPwd2" type="password" autocomplete="new-password" placeholder="确认密码" />
+      </label>
+      <div class="authErr" id="regErr"></div>
+      <button class="primary authSubmit" id="registerBtn">注册并登录</button>
+      <div class="authLinks"><button class="linkBtn" id="toLogin">已有账号？去登录</button></div>
+      <p class="authLegal">注册后，这台手机上没登录时记的送餐记录和地址会合并到账号里；之后换手机登录也能看到。</p>
+    </div>
+
+    <!-- 验证码登录 -->
+    <div class="authCard" id="panelSms" hidden>
+      <p class="authNoteLine"><b>短信验证码登录</b><span>没注册过的手机号会自动创建账号，之后可在「忘记密码」里设置密码。</span></p>
+      <label class="authField"><span>手机号</span>
+        <input id="smsPhone" type="tel" inputmode="numeric" maxlength="11" autocomplete="tel" placeholder="11 位手机号" />
+      </label>
+      <label class="authField"><span>验证码</span>
+        <div class="smsRow">
+          <input id="smsCode" type="tel" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6 位数字" />
+          <button class="smsSend" id="smsSendBtn" type="button">获取验证码</button>
+        </div>
+      </label>
+      <div class="authErr" id="smsErr"></div>
+      <button class="primary authSubmit" id="smsLoginBtn">登录 / 注册</button>
+      <div class="authLinks"><button class="linkBtn" id="toLogin2">用密码登录</button></div>
+    </div>
+
+    <!-- 找回密码 -->
+    <div class="authCard" id="panelReset" hidden>
+      <p class="authNoteLine"><b>找回密码</b><span>验证码会发到这个手机号；重置后其他设备需要重新登录。</span></p>
+      <label class="authField"><span>手机号</span>
+        <input id="resetPhone" type="tel" inputmode="numeric" maxlength="11" autocomplete="tel" placeholder="11 位手机号" />
+      </label>
+      <label class="authField"><span>验证码</span>
+        <div class="smsRow">
+          <input id="resetCode" type="tel" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6 位数字" />
+          <button class="smsSend" id="resetSendBtn" type="button">获取验证码</button>
+        </div>
+      </label>
+      <label class="authField"><span>新密码</span>
+        <input id="resetPwd" type="password" autocomplete="new-password" placeholder="至少 8 位" />
+      </label>
+      <div class="authErr" id="resetErr"></div>
+      <button class="primary authSubmit" id="resetBtn">重置密码</button>
+      <div class="authLinks"><button class="linkBtn" id="backToLogin">返回登录</button></div>
+    </div>
+
+    <div class="cta">
+      <button class="linkBtn" id="authGuest">暂不登录，直接使用 ›</button>
+    </div>
+  </div>
+
+  <!-- 已登录：资料 -->
+  <div id="acctProfile" hidden>
+    <div class="authCard">
+      <div class="acctHead">
+        <div class="acctAvatar" id="acctAvatar">骑</div>
+        <div>
+          <b id="acctName">骑手</b>
+          <p id="acctPhone">138****0000</p>
+        </div>
+      </div>
+      <div class="acctStats">
+        <div class="acctStat"><b id="acctToday">0</b><span>今日单</span></div>
+        <div class="acctStat"><b id="acctTotal">0</b><span>累计单</span></div>
+        <div class="acctStat"><b id="acctPlaces">0</b><span>地址</span></div>
+      </div>
+      <div class="acctRow"><span>云端同步</span><i id="acctSync">已开启</i></div>
+      <div class="acctRow"><span>会话有效期</span><i id="acctSession">30 天</i></div>
+      <div class="acctActions">
+        <button class="secondary" id="syncNowBtn">立即同步本机游客记录</button>
+        <button class="secondary" id="changePwdBtn">修改密码</button>
+        <button class="acctDanger" id="logoutBtn">退出登录</button>
+      </div>
+      <p class="acctFoot">退出后仍可继续使用全部功能，记录会退回为「只存本机」。</p>
+    </div>
+  </div>
 </section>
 
 <div class="overlay" id="doneOverlay">
@@ -1127,8 +1554,9 @@
 
 <div class="overlay" id="pasteOverlay">
   <div class="sheet">
-    <p>把订单信息粘在这里（名字、电话、地址都行）</p>
-    <textarea id="pasteBox" placeholder="张三 13800135025 济南市历下区阳光小区3号楼602"></textarea>
+    <p id="pasteTitle">把订单信息粘在这里（名字、电话、地址都行）</p>
+    <p class="pasteHint" id="pasteHint" hidden></p>
+    <textarea id="pasteBox" placeholder="例如：姓名 手机号 小区 楼栋 房号"></textarea>
     <div class="row">
       <button class="no" id="pasteCancel">取消</button>
       <button class="ok" id="pasteOk">识别</button>
@@ -1136,13 +1564,70 @@
   </div>
 </div>
 
+<div class="overlay" id="ocrOverlay">
+  <div class="sheet ocrSheet">
+    <div class="callHead">
+      <b id="ocrTitle">正在识别截图…</b>
+      <button class="callClose" id="ocrClose" type="button" aria-label="关闭">✕</button>
+    </div>
+    <img class="ocrPreview" id="ocrPreview" alt="订单截图预览" />
+    <p class="ocrStatus" id="ocrStatus">正在读取截图里的订单信息…</p>
+  </div>
+</div>
+
 <div class="overlay" id="sayOverlay">
   <div class="sheet">
     <p>你想说什么？打完我替你念给对方听</p>
-    <textarea id="sayBox" placeholder="例如：麻烦帮我开一下门，302 的"></textarea>
+    <textarea id="sayBox" placeholder="例如：麻烦帮我开一下门"></textarea>
     <div class="row">
       <button class="no" id="sayCancel">取消</button>
       <button class="ok" id="sayOk">念出来</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="callOverlay">
+  <div class="sheet callSheet">
+    <div class="callHead">
+      <b>让电话那头听到</b>
+      <button class="callClose" id="callClose" aria-label="关闭">✕</button>
+    </div>
+    <p class="callIntro">先拨号并打开<b>免提</b>，再点下面的句子。手机会从扬声器放出来，对方在电话里就能听到。</p>
+    <div class="callDialRow">
+      <input id="callPhone" type="tel" inputmode="numeric" maxlength="11" placeholder="顾客手机号（可留空）" />
+      <a class="callDialBtn" id="callDial" href="tel:">拨号</a>
+    </div>
+    <div class="callSteps"><span>1 拨号</span><span>2 开免提</span><span>3 手机贴近嘴边</span><span>4 点句子播放</span></div>
+    <div class="callPhrases" id="callPhrases"></div>
+    <button class="linkBtn" id="callPrefetch" style="padding-left:0">提前缓存本页语音，通话中没网也能播 ›</button>
+    <div class="callCloud" id="callCloud" hidden>
+      <div class="callCloudT">服务器语音外呼（已接入网关时可用）</div>
+      <p>不用你拨号，服务器直接打给顾客的手机并朗读选中的句子。需要单独配置语音网关。</p>
+      <button class="secondary" id="callOutbound">让服务器打给顾客并朗读</button>
+    </div>
+    <p class="callWarn">网页不能直接「插进」运营商通话，只能用免提外放让对方麦克风拾音。播放时请保持本页在前台；iOS 通话中可能被系统打断。要稳定清晰，请用服务器外呼或双向语音中转，详见 docs/电话播报方案.md。</p>
+  </div>
+</div>
+
+<div class="overlay" id="pwdOverlay">
+  <div class="sheet">
+    <div class="callHead">
+      <b id="pwdTitle">修改密码</b>
+      <button class="callClose" id="pwdClose" aria-label="关闭">✕</button>
+    </div>
+    <label class="authField" id="pwdOldField"><span>当前密码</span>
+      <input id="pwdOld" type="password" autocomplete="current-password" placeholder="输入现在的密码" />
+    </label>
+    <label class="authField"><span>新密码</span>
+      <input id="pwdNew" type="password" autocomplete="new-password" placeholder="至少 8 位" />
+    </label>
+    <label class="authField"><span>再输一次</span>
+      <input id="pwdNew2" type="password" autocomplete="new-password" placeholder="确认新密码" />
+    </label>
+    <div class="authErr" id="pwdErr"></div>
+    <div class="row">
+      <button class="no" id="pwdCancel">取消</button>
+      <button class="ok" id="pwdSave">保存</button>
     </div>
   </div>
 </div>
@@ -1188,7 +1673,7 @@
   <div class="sheet">
     <p>常去的小区，点一个就用；也可以直接填</p>
     <div class="placeChips" id="placeChips"></div>
-    <div class="addrRow"><label>小区名<input id="placeInput" placeholder="阳光小区" /></label></div>
+    <div class="addrRow"><label>小区名<input id="placeInput" placeholder="小区名称" /></label></div>
     <div class="row">
       <button class="no" id="placeCancel">取消</button>
       <button class="ok" id="placeOk">确定</button>
@@ -1199,7 +1684,7 @@
 <div class="overlay" id="typeOverlay">
   <div class="sheet">
     <p>让对方把话打在这里（或你替他念出来）</p>
-    <textarea id="typeBox" placeholder="例如：你放快递柜吧，我在上班"></textarea>
+    <textarea id="typeBox" placeholder="例如：请帮我放快递柜，谢谢"></textarea>
     <div class="row">
       <button class="no" id="cancelType">取消</button>
       <button class="ok" id="okType">确定</button>
@@ -1314,7 +1799,7 @@ const TIPS_PICKUP = {
 const RULES = [
   { k: ['快递柜', '柜子', '柜'], r: ['好的，我放快递柜，取件码发您手机上', '柜子满了，我放门口货架，可以吗'] },
   { k: ['保安', '登记', '不让进', '物业', '门岗', '进不去'], r: ['您好，我是送外卖的，订单在这，您可以核对', '需要登记的话，麻烦告诉我在哪填'] },
-  { k: ['几号楼', '哪里', '怎么走', '几单元', '门牌'], r: ['我在 3 号楼楼下，麻烦您下来一下', '我发个定位给您，您看一眼'] },
+  { k: ['几号楼', '哪里', '怎么走', '几单元', '门牌'], r: ['我在楼下，麻烦您下来一下', '我发个定位给您，您看一眼'] },
   { k: ['门', '禁', '开一下'], r: ['我在门口，麻烦开一下门', '我把餐放门口，麻烦您取一下'] },
   { k: ['稍等', '马上', '几分钟', '堵车'], r: ['好的，我等您 5 分钟', '我先放门口保温箱，您回来取'] },
   { k: ['听不见', '听不到', '什么', '再说'], r: ['不好意思，我是听障骑手，请用文字跟我说', '麻烦您再说一遍，我看文字'] },
@@ -1323,11 +1808,11 @@ const RULES = [
 const el = (id) => document.getElementById(id);
 const PLACE_KEY = 'cs_places_v1';
 
-let place = { name: '阳光小区' };
-let addr = { b: '3 号楼', r: '602' };
-let currentFloor = 6;
-let pick = { phone: '13800135025', code: '38' };   // 取餐：手机号 + 取餐码
-const phoneTail = () => (pick.phone.replace(/\D/g, '').slice(-4) || '5025');
+let place = { name: '' };
+let addr = { b: '', r: '' };
+let currentFloor = 0;
+let pick = { phone: '', code: '', shop: '', addr: '' };   // 取餐：手机号 + 取餐码 + 商家 + 取货地址
+const phoneTail = () => (pick.phone.replace(/\D/g, '').slice(-4) || '');
 
 let mode = 'deliver';                                  // deliver = 送餐，pickup = 取餐
 const scenesObj = () => (mode === 'pickup' ? SCENES_PICKUP : SCENES_DELIVER);
@@ -1355,12 +1840,14 @@ function setScreen(name) {
   toggle(pick, 'hidden', name !== 'pickup');
   toggle(app,  'hidden', name !== 'app');
   toggle(el('recPage'), 'hidden', name !== 'rec');
+  toggle(el('accountPage'), 'hidden', name !== 'account');
 
   toggle(home, 'gone', name !== 'home');
   toggle(addr, 'on',   name === 'addr');
   toggle(pick, 'on',   name === 'pickup');
   toggle(app,  'on',   name === 'app');
   toggle(el('recPage'), 'on', name === 'rec');
+  toggle(el('accountPage'), 'on', name === 'account');
 
   if (el('ambient')) el('ambient').style.opacity = name === 'home' ? '' : '0';
 }
@@ -1375,12 +1862,17 @@ renderTodayChip();
   el('homeF').value = currentFloor > 10 ? currentFloor : '';
   syncRoomToFloor();
   updatePreview();
+  renderRecentAddresses();
+  renderPlaceSuggest(el('homeP') ? el('homeP').value : '');
+  renderPlaceHint();
 }
 function backFromApp() {
   setScreen(mode === 'pickup' ? 'pickup' : 'addr');
   if (mode === 'pickup') {
     el('pkPhone').value = pick.phone;
     el('pkCode').value = pick.code;
+    if (el('pkShop')) el('pkShop').value = pick.shop;
+    if (el('pkAddr')) el('pkAddr').value = pick.addr || '';
     updatePickupPreview();
   } else {
     renderFloorChips();
@@ -1393,7 +1885,12 @@ function goPickup() {
   setScreen('pickup');
   el('pkPhone').value = pick.phone;
   el('pkCode').value = pick.code;
+  if (el('pkShop')) el('pkShop').value = pick.shop;
+    if (el('pkAddr')) el('pkAddr').value = pick.addr || '';
   updatePickupPreview();
+  renderRecentPickup();
+  renderShopSuggest(el('pkShop') ? el('pkShop').value : '');
+  renderShopHint();
 }
 function backFromPickup() {
   setScreen('home');
@@ -1420,6 +1917,7 @@ function enterApp(m, demo) {
   setScreen('app');
   addrConfirmed = true;
   saveLast();
+  if (mode === 'pickup') rememberPickupAddress(); else rememberDeliverAddress();
   if (demo) setTimeout(runDemo, 420);
 }
 
@@ -1540,6 +2038,12 @@ function initVoiceToggle() {
   const t = el('voiceToggle'); if (!t) return;
   applyVoiceToggle();
   t.onclick = () => setVoiceGender(voiceState.gender === 'male' ? 'female' : 'male');
+  t.addEventListener('keydown', (e) => {
+    if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
+      e.preventDefault();
+      setVoiceGender(voiceState.gender === 'male' ? 'female' : 'male');
+    }
+  });
 }
 initVoiceToggle();
 
@@ -1592,19 +2096,30 @@ const previewPlain = ['', ''];
 function updatePreview() {
   const box = el('previewText');
   if (!box) return;
-  const mark = (s) => s
-    .replace(place.name, `<em>${place.name}</em>`)
-    .replace(addr.b, `<em>${addr.b}</em>`)
-    .replace(addr.r, `<em>${addr.r}</em>`)
-    .replace(new RegExp(String(currentFloor) + ' 楼'), `<em>${currentFloor} 楼</em>`);
-
-  previewPlain[0] = applyVars('您好，我是送外卖的，{p} {b} {r}，麻烦开一下门');
-  box.innerHTML = `<span>${mark(previewPlain[0])}</span>`;
-
   const box2 = el('previewText2');
+  const parts = [place.name, addr.b, addr.r].filter(Boolean);
+  if (!parts.length && !currentFloor) {
+    previewPlain[0] = '填写小区、楼栋、房号后，这里会自动生成要说的话';
+    previewPlain[1] = '填写楼层后，这里会显示请人帮忙按电梯的话';
+    box.innerHTML = '<span class="previewEmpty">填写小区、楼栋、房号后，这里会自动生成要说的话</span>';
+    if (box2) box2.innerHTML = '<span class="previewEmpty">楼层选填；填了会显示电梯里要说的话</span>';
+    return;
+  }
+  const loc = parts.join(' ');
+  previewPlain[0] = loc
+    ? '您好，我是送外卖的，' + loc + '，麻烦开一下门'
+    : '您好，我是送外卖的，麻烦开一下门';
+  previewPlain[1] = currentFloor > 0
+    ? '电梯要刷卡，能帮我按一下 ' + currentFloor + ' 楼吗'
+    : '电梯要刷卡，能帮我按一下楼层吗';
+  const esc = (x) => (typeof escHtml === 'function' ? escHtml(x) : x);
+  box.innerHTML = '<span>' + (loc
+    ? '您好，我是送外卖的，<em>' + esc(loc) + '</em>，麻烦开一下门'
+    : '您好，我是送外卖的，麻烦开一下门') + '</span>';
   if (box2) {
-    previewPlain[1] = applyVars('电梯要刷卡，能帮我按一下 {f} 楼吗');
-    box2.innerHTML = `<span>${mark(previewPlain[1])}</span>`;
+    box2.innerHTML = '<span>' + (currentFloor > 0
+      ? '电梯要刷卡，能帮我按一下 <em>' + esc(String(currentFloor)) + '</em> 楼吗'
+      : '电梯要刷卡，能帮我按一下楼层吗') + '</span>';
   }
 }
 
@@ -1612,25 +2127,39 @@ const pkPlain = ['', ''];
 function updatePickupPreview() {
   const box = el('pkPreview');
   if (!box) return;
-  pkPlain[0] = `老板，我来取外卖，尾号 ${phoneTail()}，取餐码 ${pick.code}`;
-  box.innerHTML = `<span>老板，我来取外卖，尾号 <em>${phoneTail()}</em>，取餐码 <em>${pick.code}</em></span>`;
-
   const box2 = el('pkPreview2');
-  if (box2) {
-    pkPlain[1] = `您好，取餐码 ${pick.code}，麻烦看一下单`;
-    box2.innerHTML = `<span>您好，取餐码 <em>${pick.code}</em>，麻烦看一下单</span>`;
+  const tail = phoneTail();
+  const code = String(pick.code || '').trim();
+  if (!tail && !code) {
+    pkPlain[0] = '填写手机尾号/取餐码后，这里会自动生成要说的话';
+    pkPlain[1] = '填好后，这里会显示跟商家报单的话';
+    box.innerHTML = '<span class="previewEmpty">填写手机尾号/取餐码后，这里会自动生成要说的话</span>';
+    if (box2) box2.innerHTML = '<span class="previewEmpty">填好后，这里会显示跟商家报单的话</span>';
+    return;
   }
+  const parts = [];
+  if (tail) parts.push('尾号 ' + tail);
+  if (code) parts.push('取餐码 ' + code);
+  pkPlain[0] = '老板，我来取外卖，' + parts.join('，');
+  pkPlain[1] = code ? '您好，取餐码 ' + code + '，麻烦看一下单' : '您好，我来取外卖，尾号 ' + tail;
+  const esc = (x) => (typeof escHtml === 'function' ? escHtml(x) : x);
+  box.innerHTML = '<span>老板，我来取外卖，' + (tail ? '尾号 <em>' + esc(tail) + '</em>' : '') +
+    (tail && code ? '，' : '') + (code ? '取餐码 <em>' + esc(code) + '</em>' : '') + '</span>';
+  if (box2) box2.innerHTML = '<span>' + (code
+    ? '您好，取餐码 <em>' + esc(code) + '</em>，麻烦看一下单'
+    : '您好，我来取外卖，尾号 <em>' + esc(tail) + '</em>') + '</span>';
 }
 
 /* 选楼层时把房号的前几位一起改掉（5 层 → 5xx，12 层 → 12xx），保留后两位 */
 function roomForFloor(floor) {
   const cur = String(addr.r || '').replace(/\D/g, '');
-  const tail = cur.length >= 2 ? cur.slice(-2) : '01';
-  return String(floor) + tail;
+  if (!floor || cur.length < 2) return '';
+  return String(floor) + cur.slice(-2);
 }
 function syncRoomToFloor() {
+  if (!currentFloor) return;
   const next = roomForFloor(currentFloor);
-  if (next === addr.r) return;
+  if (!next || next === addr.r) return;
   addr.r = next;
   const box = el('homeR');
   if (box) box.value = next;
@@ -1725,7 +2254,17 @@ function autoFit() {
 function renderReplies(list, src) {
   const box = el('replies');
   box.innerHTML = '';
-  const items = (list || scenesObj()[scene]).slice()
+  const hasFloor = currentFloor > 0;
+  const hasAddr = !!(place.name || addr.b || addr.r);
+  const hasPhone = !!(pick.phone && phoneTail());
+  const hasCode = !!(pick.code && String(pick.code).trim());
+  const items = (list || scenesObj()[scene]).filter(it => {
+    if (!hasFloor && it.t.includes('{f}')) return false;
+    if (!hasAddr && /\{(?:p|b|r)\}/.test(it.t)) return false;
+    if (!hasPhone && it.t.includes('{ph}')) return false;
+    if (!hasCode && it.t.includes('{pc}')) return false;
+    return true;
+  }).slice()
     .sort((a, b) => (b.f || 0) - (a.f || 0))
     .map(it => ({ ...it, t: applyVars(it.t) }));
 
@@ -1975,6 +2514,1106 @@ const NOTES = [
 })();
 
 
+/* ══════════ 账号 / 云端地址簿 / 订单同步（新增） ══════════ */
+const AUTH_STATE = {
+  user: null, sms: false, call: false,
+  serverOrders: null, total: 0, ready: false, returnTo: 'home',
+};
+const AUTH_UID_KEY = 'cs_auth_uid';
+const SERVER_ORDERS_PREFIX = 'cs_server_orders_v1_';
+const DELIVER_BOOK_KEY = 'cs_addrbook_v1';
+const PICKUP_BOOK_KEY = 'cs_pickupbook_v1';
+const IMPORT_STATE_KEY = 'cs_import_state_v1';
+const INSTALL_ID_KEY = 'cs_install_id';
+const PENDING_ORDERS_KEY = 'cs_pending_orders_v1';
+const CALL_PHONE_KEY = 'cs_call_phone';
+
+function readJSON(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    const val = JSON.parse(raw);
+    return val == null ? fallback : val;
+  } catch (e) { return fallback; }
+}
+function writeJSON(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
+}
+function escHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+function normKey(s) { return String(s || '').trim().replace(/\s+/g, '').toLowerCase(); }
+function digitsOf(s) { return String(s || '').replace(/\D/g, ''); }
+function phoneInput(s) {
+  let d = digitsOf(s);
+  if (d.length === 13 && d.startsWith('86')) d = d.slice(2);
+  return d.slice(0, 11);
+}
+function uuid() {
+  try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+  return 'e' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+}
+function installId() {
+  let v = readJSON(INSTALL_ID_KEY, '');
+  if (!v) {
+    v = 'i' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    writeJSON(INSTALL_ID_KEY, v);
+  }
+  return v;
+}
+function currentScreen() {
+  if (el('app') && el('app').classList.contains('on')) return 'app';
+  if (el('accountPage') && el('accountPage').classList.contains('on')) return 'account';
+  if (el('recPage') && el('recPage').classList.contains('on')) return 'rec';
+  if (el('addrPage') && el('addrPage').classList.contains('on')) return 'addr';
+  if (el('pickupPage') && el('pickupPage').classList.contains('on')) return 'pickup';
+  return 'home';
+}
+
+/* ── HTTP ── */
+async function api(path, opts) {
+  const o = Object.assign({ credentials: 'same-origin', cache: 'no-store' }, opts || {});
+  if (o.body && typeof o.body !== 'string') {
+    o.headers = Object.assign({ 'Content-Type': 'application/json' }, o.headers || {});
+    o.body = JSON.stringify(o.body);
+  }
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 15000);
+  let r;
+  try {
+    r = await fetch(path, Object.assign({}, o, { signal: ctrl.signal }));
+  } catch (e) {
+    clearTimeout(timer);
+    const err = new Error('网络连不上，请检查网络后再试');
+    err.offline = true;
+    throw err;
+  }
+  clearTimeout(timer);
+  let j = {};
+  try { j = await r.json(); } catch (e) {}
+  if (!r.ok) {
+    const err = new Error(j.error || ('请求失败（' + r.status + '）'));
+    err.status = r.status;
+    err.code = j.code || '';
+    err.payload = j;
+    throw err;
+  }
+  return j;
+}
+
+/* ── 本地地址簿 ── */
+function loadDeliverBook() {
+  const o = readJSON(DELIVER_BOOK_KEY, {});
+  return o && typeof o === 'object' ? o : {};
+}
+function saveDeliverBook(o) { writeJSON(DELIVER_BOOK_KEY, o); }
+function deliverRecord(name) {
+  const k = normKey(name);
+  return k ? (loadDeliverBook()[k] || null) : null;
+}
+function allDeliverRecords() {
+  return Object.values(loadDeliverBook())
+    .filter(r => r && r.place)
+    .sort((a, b) => (b.last || 0) - (a.last || 0));
+}
+function loadPickupBook() {
+  const o = readJSON(PICKUP_BOOK_KEY, {});
+  return o && typeof o === 'object' ? o : {};
+}
+function savePickupBook(o) { writeJSON(PICKUP_BOOK_KEY, o); }
+function pickupRecord(shop) {
+  const k = normKey(shop);
+  return k ? (loadPickupBook()[k] || null) : null;
+}
+function allPickupRecords() {
+  return Object.values(loadPickupBook())
+    .filter(r => r && r.shop)
+    .sort((a, b) => (b.last || 0) - (a.last || 0));
+}
+function deliverSummary(rec) {
+  if (!rec) return '';
+  return [rec.b, rec.r, rec.floor ? (rec.floor + ' 层') : ''].filter(Boolean).join(' ');
+}
+function tailOf(phone) { return digitsOf(phone).slice(-4); }
+
+let deliverPostTimer = null;
+let pickupPostTimer = null;
+
+function rememberDeliverAddress() {
+  const name = String(place.name || '').trim();
+  if (!name || name.includes('://')) return;
+  const b = String(addr.b || '').trim();
+  const r = String(addr.r || '').trim();
+  const floor = Number(currentFloor) || 0;
+  if (!b && !r && !floor) return;
+  const book = loadDeliverBook();
+  const k = normKey(name);
+  const old = book[k] || {};
+  book[k] = {
+    place: name, b: b || old.b || '', r: r || old.r || '',
+    floor: floor || old.floor || 0,
+    last: Date.now(), count: (old.count || 0) + 1,
+  };
+  saveDeliverBook(book);
+  renderRecentAddresses();
+  renderPlaceHint();
+  if (AUTH_STATE.user) {
+    clearTimeout(deliverPostTimer);
+    deliverPostTimer = setTimeout(() => {
+      api('/api/addrbook/deliver', {
+        method: 'POST', body: { place: name, b: b, r: r, floor: floor },
+      }).catch(() => {});
+    }, 900);
+  }
+}
+
+function rememberPickupAddress() {
+  const shop = String(pick.shop || '').trim();
+  if (!shop) return;
+  const book = loadPickupBook();
+  const k = normKey(shop);
+  const old = book[k] || {};
+  book[k] = {
+    shop: shop, phone: pick.phone || old.phone || '', code: pick.code || old.code || '',
+    last: Date.now(), count: (old.count || 0) + 1,
+  };
+  savePickupBook(book);
+  renderRecentPickup();
+  renderShopHint();
+  if (AUTH_STATE.user) {
+    clearTimeout(pickupPostTimer);
+    pickupPostTimer = setTimeout(() => {
+      api('/api/addrbook/pickup', {
+        method: 'POST', body: { shop: shop, phone: pick.phone, code: pick.code },
+      }).catch(() => {});
+    }, 900);
+  }
+}
+
+function mergeAddressBooks(server) {
+  if (!server) return;
+  const db = loadDeliverBook();
+  (server.deliver || []).forEach(x => {
+    const k = normKey(x.place);
+    if (!k) return;
+    const cur = db[k];
+    if (!cur || (x.last || 0) >= (cur.last || 0)) {
+      db[k] = {
+        place: x.place, b: x.b || '', r: x.r || '', floor: x.floor || 0,
+        last: x.last || 0, count: x.count || 1,
+      };
+    }
+  });
+  saveDeliverBook(db);
+
+  const pb = loadPickupBook();
+  (server.pickup || []).forEach(x => {
+    const k = normKey(x.shop);
+    if (!k) return;
+    const cur = pb[k];
+    if (!cur || (x.last || 0) >= (cur.last || 0)) {
+      pb[k] = {
+        shop: x.shop, phone: x.phone || '', code: x.code || '',
+        last: x.last || 0, count: x.count || 1,
+      };
+    }
+  });
+  savePickupBook(pb);
+  renderRecentAddresses();
+  renderRecentPickup();
+}
+
+/* ── 账号状态 ── */
+function pendingList() {
+  const list = readJSON(PENDING_ORDERS_KEY, []);
+  return Array.isArray(list) ? list : [];
+}
+function savePendingList(list) { writeJSON(PENDING_ORDERS_KEY, list.slice(-200)); }
+function pendingForUser() {
+  const uid = AUTH_STATE.user && AUTH_STATE.user.id;
+  return pendingList().filter(ev => !ev.uid || ev.uid === uid);
+}
+function queueOrder(ev) {
+  if (AUTH_STATE.user) ev.uid = AUTH_STATE.user.id;
+  const list = pendingList();
+  list.push(ev);
+  savePendingList(list);
+}
+function setServerOrders(uid, days) {
+  AUTH_STATE.serverOrders = days || {};
+  if (uid) writeJSON(SERVER_ORDERS_PREFIX + uid, AUTH_STATE.serverOrders);
+}
+function loadServerOrders(uid) {
+  if (!uid) return {};
+  const o = readJSON(SERVER_ORDERS_PREFIX + uid, {});
+  return o && typeof o === 'object' ? o : {};
+}
+function bumpDay(map, day, hm) {
+  const cur = map[day] || { count: 0, first: hm, last: hm };
+  if (!cur.first) cur.first = hm;
+  cur.count = (cur.count || 0) + 1;
+  cur.last = hm;
+  map[day] = cur;
+  return cur;
+}
+function bumpStat(stat, hm) {
+  const cur = stat || { count: 0, first: hm, last: hm };
+  if (!cur.first) cur.first = hm;
+  cur.count = (cur.count || 0) + 1;
+  cur.last = hm;
+  return cur;
+}
+
+async function flushPending() {
+  if (!AUTH_STATE.user) return;
+  const uid = AUTH_STATE.user.id;
+  const all = pendingList();
+  const list = all.filter(ev => !ev.uid || ev.uid === uid);
+  const others = all.filter(ev => ev.uid && ev.uid !== uid);
+  if (!list.length) return;
+  const keep = [];
+  let synced = 0;
+  for (const ev of list) {
+    try {
+      const r = await api('/api/orders', { method: 'POST', body: ev });
+      if (r && r.day && r.stat) {
+        if (!AUTH_STATE.serverOrders) AUTH_STATE.serverOrders = {};
+        AUTH_STATE.serverOrders[r.day] = r.stat;
+        AUTH_STATE.total = r.total || AUTH_STATE.total;
+      }
+      synced++;
+    } catch (e) {
+      if (e.status === 401) { handleAuthLost(); return; }
+      if (!e.offline && e.status && e.status < 500) continue;
+      keep.push(ev);
+    }
+  }
+  savePendingList(others.concat(keep));
+  if (AUTH_STATE.user) {
+    writeJSON(SERVER_ORDERS_PREFIX + AUTH_STATE.user.id, AUTH_STATE.serverOrders || {});
+  }
+  if (synced) { renderTodayChip(); updateAuthUI(); }
+}
+
+function handleAuthLost() {
+  AUTH_STATE.user = null;
+  AUTH_STATE.serverOrders = null;
+  AUTH_STATE.total = 0;
+  updateAuthUI();
+  renderTodayChip();
+  toast('登录已过期，请重新登录');
+}
+
+async function migrateGuestData(user) {
+  if (!user) return;
+  // 送餐记录：把游客记录幂等迁移到账号（服务端按 event_id 去重）
+  const local = loadLocalOrders();
+  const days = Object.keys(local).sort().slice(-31).map(day => ({
+    day: day,
+    count: Number((local[day] || {}).count) || 0,
+    first: (local[day] || {}).first || '00:00',
+    last: (local[day] || {}).last || (local[day] || {}).first || '00:00',
+  })).filter(x => x.count > 0);
+  if (days.length) {
+    const state = readJSON(IMPORT_STATE_KEY, {});
+    const prev = state[user.id] || {};
+    const sig = JSON.stringify(days.map(x => [x.day, x.count]));
+    if (prev.sig !== sig) {
+      try {
+        const r = await api('/api/orders/import', {
+          method: 'POST', body: { import_id: installId(), days: days },
+        });
+        state[user.id] = { sig: sig, at: Date.now() };
+        writeJSON(IMPORT_STATE_KEY, state);
+        if (r.merged) toast('已合并本机 ' + r.merged + ' 单记录');
+      } catch (e) {}
+    }
+  }
+  // 地址簿：先拿云端，再补本机独有的
+  try {
+    const sb = await api('/api/addrbook');
+    const serverPlaces = new Set((sb.deliver || []).map(x => normKey(x.place)));
+    const serverShops = new Set((sb.pickup || []).map(x => normKey(x.shop)));
+    mergeAddressBooks(sb);
+    const jobs = [];
+    allDeliverRecords().slice(0, 20).forEach(rec => {
+      if (!serverPlaces.has(normKey(rec.place))) {
+        jobs.push(api('/api/addrbook/deliver', {
+          method: 'POST', body: { place: rec.place, b: rec.b, r: rec.r, floor: rec.floor },
+        }).catch(() => {}));
+      }
+    });
+    allPickupRecords().slice(0, 20).forEach(rec => {
+      if (!serverShops.has(normKey(rec.shop))) {
+        jobs.push(api('/api/addrbook/pickup', {
+          method: 'POST', body: { shop: rec.shop, phone: rec.phone, code: rec.code },
+        }).catch(() => {}));
+      }
+    });
+    if (jobs.length) await Promise.all(jobs);
+  } catch (e) {}
+}
+
+async function afterLogin(user) {
+  AUTH_STATE.user = user;
+  try { localStorage.setItem(AUTH_UID_KEY, String(user.id)); } catch (e) {}
+  AUTH_STATE.serverOrders = loadServerOrders(user.id);
+  AUTH_STATE.total = 0;
+  updateAuthUI();
+  renderTodayChip();
+  await migrateGuestData(user);
+  await refreshAccountData();
+  flushPending();
+}
+
+async function refreshAccountData() {
+  if (!AUTH_STATE.user) return;
+  try {
+    const [ab, ord] = await Promise.all([
+      api('/api/addrbook'),
+      api('/api/orders?days=366'),
+    ]);
+    mergeAddressBooks(ab);
+    setServerOrders(AUTH_STATE.user.id, ord.days || {});
+    AUTH_STATE.total = ord.total || 0;
+    renderTodayChip();
+    updateAuthUI();
+    renderPlaceHint();
+    renderShopHint();
+    if (currentScreen() === 'rec') openRecords();
+  } catch (e) {
+    if (e.status === 401) handleAuthLost();
+  }
+}
+
+/* ── 登录 / 注册 UI ── */
+function setAuthErr(id, msg) {
+  const n = el(id);
+  if (n) n.textContent = msg || '';
+}
+function busyBtn(btn, on, label) {
+  if (!btn) return;
+  if (on) {
+    if (!btn.dataset.orig) btn.dataset.orig = btn.textContent;
+    btn.textContent = label || '处理中…';
+    btn.disabled = true;
+  } else {
+    btn.textContent = btn.dataset.orig || btn.textContent;
+    btn.disabled = false;
+    delete btn.dataset.orig;
+  }
+}
+function showAuthTab(name) {
+  if (name === 'sms' && !AUTH_STATE.sms) name = 'login';
+  if (name === 'reset' && !AUTH_STATE.sms) name = 'login';
+  const panels = { login: 'panelLogin', register: 'panelRegister', sms: 'panelSms', reset: 'panelReset' };
+  document.querySelectorAll('#authTabs .authTab').forEach(t => {
+    t.classList.toggle('on', t.dataset.tab === name);
+  });
+  Object.keys(panels).forEach(k => {
+    const n = el(panels[k]);
+    if (n) n.hidden = (k !== name);
+  });
+  const titles = {
+    login: ['登录', '登录后记录存云端，换手机也不丢'],
+    register: ['注册', '手机号 + 密码，30 秒搞定'],
+    sms: ['验证码登录', '没注册过的手机号会自动创建账号'],
+    reset: ['找回密码', '用短信验证码重置密码'],
+  };
+  const t = titles[name] || titles.login;
+  if (el('acctTitle')) el('acctTitle').textContent = t[0];
+  if (el('acctSub')) el('acctSub').textContent = t[1];
+  const allTabs = el('authTabs');
+  if (allTabs) allTabs.hidden = (name === 'reset');
+}
+function openAccount(tab) {
+  const cur = currentScreen();
+  if (cur !== 'account') AUTH_STATE.returnTo = cur;
+  updateAuthUI();
+  if (!AUTH_STATE.user) showAuthTab(tab || 'login');
+  setScreen('account');
+}
+function leaveAuth() {
+  const to = AUTH_STATE.returnTo || 'home';
+  setScreen(to);
+  if (to === 'rec') openRecords();
+}
+function validPhoneInput(v) { return /^1[3-9]\d{9}$/.test(v); }
+
+async function doLogin() {
+  setAuthErr('loginErr', '');
+  const phone = phoneInput(el('loginPhone').value);
+  const pwd = el('loginPwd').value || '';
+  if (!validPhoneInput(phone)) { setAuthErr('loginErr', '请输入正确的 11 位手机号'); return; }
+  if (!pwd) { setAuthErr('loginErr', '请输入密码'); return; }
+  const btn = el('loginBtn');
+  busyBtn(btn, true, '登录中…');
+  try {
+    const r = await api('/api/auth/login', { method: 'POST', body: { phone: phone, password: pwd, remember: true } });
+    await afterLogin(r.user);
+    el('loginPwd').value = '';
+    toast('登录成功，记录已同步到云端');
+    leaveAuth();
+  } catch (e) {
+    setAuthErr('loginErr', e.message);
+  } finally {
+    busyBtn(btn, false);
+  }
+}
+
+async function doRegister() {
+  setAuthErr('regErr', '');
+  const name = (el('regName').value || '').trim();
+  const phone = phoneInput(el('regPhone').value);
+  const pwd = el('regPwd').value || '';
+  const pwd2 = el('regPwd2').value || '';
+  if (!validPhoneInput(phone)) { setAuthErr('regErr', '请输入正确的 11 位手机号'); return; }
+  if (pwd.length < 8) { setAuthErr('regErr', '密码至少 8 位'); return; }
+  if (pwd !== pwd2) { setAuthErr('regErr', '两次输入的密码不一样'); return; }
+  const btn = el('registerBtn');
+  busyBtn(btn, true, '注册中…');
+  try {
+    const r = await api('/api/auth/register', { method: 'POST', body: { phone: phone, password: pwd, nickname: name } });
+    await afterLogin(r.user);
+    el('regPwd').value = '';
+    el('regPwd2').value = '';
+    toast('注册成功，本机记录已合并');
+    leaveAuth();
+  } catch (e) {
+    setAuthErr('regErr', e.message);
+  } finally {
+    busyBtn(btn, false);
+  }
+}
+
+function startCountdown(btn) {
+  if (!btn) return;
+  const orig = btn.dataset.orig || btn.textContent;
+  btn.dataset.orig = orig;
+  let left = 60;
+  btn.disabled = true;
+  btn.textContent = left + ' 秒';
+  const timer = setInterval(() => {
+    left--;
+    if (left <= 0) {
+      clearInterval(timer);
+      btn.disabled = false;
+      btn.textContent = orig;
+      delete btn.dataset.orig;
+    } else {
+      btn.textContent = left + ' 秒';
+    }
+  }, 1000);
+}
+
+async function sendSmsCode(phone, btn, errId, codeInput) {
+  setAuthErr(errId, '');
+  if (!validPhoneInput(phone)) { setAuthErr(errId, '请输入正确的 11 位手机号'); return; }
+  if (!AUTH_STATE.sms) { setAuthErr(errId, '短信服务还没开通，请用手机号 + 密码登录'); return; }
+  busyBtn(btn, true, '发送中…');
+  try {
+    const r = await api('/api/auth/sms/send', { method: 'POST', body: { phone: phone } });
+    startCountdown(btn);
+    if (r.devCode) {
+      if (codeInput) codeInput.value = r.devCode;
+      toast('演示模式验证码：' + r.devCode);
+    } else {
+      toast('验证码已发送，5 分钟内有效');
+    }
+  } catch (e) {
+    setAuthErr(errId, e.message);
+    busyBtn(btn, false);
+  }
+}
+
+async function doSmsLogin() {
+  setAuthErr('smsErr', '');
+  const phone = phoneInput(el('smsPhone').value);
+  const code = digitsOf(el('smsCode').value);
+  if (!validPhoneInput(phone)) { setAuthErr('smsErr', '请输入正确的 11 位手机号'); return; }
+  if (code.length !== 6) { setAuthErr('smsErr', '请输入 6 位验证码'); return; }
+  const btn = el('smsLoginBtn');
+  busyBtn(btn, true, '登录中…');
+  try {
+    const r = await api('/api/auth/sms/login', { method: 'POST', body: { phone: phone, code: code } });
+    await afterLogin(r.user);
+    toast(r.created ? '账号已创建并登录' : '登录成功');
+    leaveAuth();
+  } catch (e) {
+    setAuthErr('smsErr', e.message);
+  } finally {
+    busyBtn(btn, false);
+  }
+}
+
+async function doReset() {
+  setAuthErr('resetErr', '');
+  const phone = phoneInput(el('resetPhone').value);
+  const code = digitsOf(el('resetCode').value);
+  const pwd = el('resetPwd').value || '';
+  if (!validPhoneInput(phone)) { setAuthErr('resetErr', '请输入正确的 11 位手机号'); return; }
+  if (code.length !== 6) { setAuthErr('resetErr', '请输入 6 位验证码'); return; }
+  if (pwd.length < 8) { setAuthErr('resetErr', '新密码至少 8 位'); return; }
+  const btn = el('resetBtn');
+  busyBtn(btn, true, '重置中…');
+  try {
+    await api('/api/auth/reset', { method: 'POST', body: { phone: phone, code: code, password: pwd } });
+    toast('密码已重置，请用新密码登录');
+    el('loginPhone').value = phone;
+    showAuthTab('login');
+  } catch (e) {
+    setAuthErr('resetErr', e.message);
+  } finally {
+    busyBtn(btn, false);
+  }
+}
+
+async function doLogout() {
+  if (!confirm('退出登录后，记录会退回「只存本机」。确定退出吗？')) return;
+  try { await api('/api/auth/logout', { method: 'POST', body: {} }); } catch (e) {}
+  AUTH_STATE.user = null;
+  AUTH_STATE.serverOrders = null;
+  AUTH_STATE.total = 0;
+  updateAuthUI();
+  renderTodayChip();
+  setScreen('home');
+  toast('已退出登录，依然可以继续用');
+}
+
+function openPwd() {
+  const u = AUTH_STATE.user;
+  if (!u) { openAccount('login'); return; }
+  setAuthErr('pwdErr', '');
+  if (el('pwdOld')) el('pwdOld').value = '';
+  if (el('pwdNew')) el('pwdNew').value = '';
+  if (el('pwdNew2')) el('pwdNew2').value = '';
+  if (el('pwdOldField')) el('pwdOldField').hidden = !u.hasPassword;
+  if (el('pwdTitle')) el('pwdTitle').textContent = u.hasPassword ? '修改密码' : '设置密码';
+  if (el('pwdOverlay')) el('pwdOverlay').classList.add('on');
+  setTimeout(() => {
+    const n = el(u.hasPassword ? 'pwdOld' : 'pwdNew');
+    if (n) n.focus();
+  }, 90);
+}
+
+async function doChangePwd() {
+  setAuthErr('pwdErr', '');
+  const u = AUTH_STATE.user;
+  if (!u) { openAccount('login'); return; }
+  const old = el('pwdOld') ? el('pwdOld').value : '';
+  const np = el('pwdNew') ? el('pwdNew').value : '';
+  const np2 = el('pwdNew2') ? el('pwdNew2').value : '';
+  if (u.hasPassword && !old) { setAuthErr('pwdErr', '请输入当前密码'); return; }
+  if (np.length < 8) { setAuthErr('pwdErr', '新密码至少 8 位'); return; }
+  if (np !== np2) { setAuthErr('pwdErr', '两次输入的新密码不一样'); return; }
+  const btn = el('pwdSave');
+  busyBtn(btn, true, '保存中…');
+  try {
+    await api('/api/auth/password', { method: 'POST', body: { old: old, new: np } });
+    AUTH_STATE.user.hasPassword = true;
+    if (el('pwdOverlay')) el('pwdOverlay').classList.remove('on');
+    toast('密码已更新，其他设备需要重新登录');
+  } catch (e) {
+    setAuthErr('pwdErr', e.message);
+  } finally {
+    busyBtn(btn, false);
+  }
+}
+
+function updateAuthUI() {
+  const u = AUTH_STATE.user;
+  const btn = el('acctBtn');
+  if (btn) {
+    if (u) {
+      btn.textContent = (u.nickname || '我的').slice(0, 6);
+      btn.classList.add('on');
+      btn.title = '已登录：' + u.phoneMask;
+    } else {
+      btn.textContent = '登录';
+      btn.classList.remove('on');
+      btn.title = '登录后把记录存到云端';
+    }
+  }
+  const forms = el('authForms'), profile = el('acctProfile');
+  if (forms) forms.hidden = !!u;
+  if (profile) profile.hidden = !u;
+  if (u) {
+    if (el('acctTitle')) el('acctTitle').textContent = '我的账号';
+    if (el('acctSub')) el('acctSub').textContent = u.phoneMask + ' · 记录存云端';
+    if (el('acctAvatar')) el('acctAvatar').textContent = (u.nickname || '骑').slice(0, 1);
+    if (el('acctName')) el('acctName').textContent = u.nickname || '骑手';
+    if (el('acctPhone')) el('acctPhone').textContent = u.phoneMask;
+    if (el('acctToday')) el('acctToday').textContent = todayStat().count;
+    if (el('acctTotal')) el('acctTotal').textContent = AUTH_STATE.total || 0;
+    if (el('acctPlaces')) el('acctPlaces').textContent = Object.keys(loadDeliverBook()).length;
+    const pending = pendingForUser().length;
+    if (el('acctSync')) {
+      el('acctSync').textContent = pending ? ('待同步 ' + pending + ' 单') : '已同步';
+      el('acctSync').classList.toggle('off', pending > 0);
+    }
+    if (el('acctSession')) el('acctSession').textContent = '最长 90 天';
+  } else if (el('acctTitle') && currentScreen() === 'account') {
+    el('acctTitle').textContent = '登录';
+    if (el('acctSub')) el('acctSub').textContent = '登录后记录存云端，换手机也不丢';
+  }
+  const note = el('recSyncNote');
+  if (note) {
+    note.innerHTML = u
+      ? '<button id="recLoginBtn">刷新云端记录</button>'
+      : '<button id="recLoginBtn">登录后同步记录 ›</button>';
+    bindRecLogin();
+  }
+}
+function bindRecLogin() {
+  const b = el('recLoginBtn');
+  if (!b) return;
+  b.onclick = () => {
+    if (AUTH_STATE.user) {
+      toast('正在刷新云端记录…');
+      refreshAccountData().then(() => toast('已刷新'));
+    } else {
+      openAccount('login');
+    }
+  };
+}
+
+async function initAuth() {
+  let health = null;
+  try {
+    const r = await fetch('/api/health', { cache: 'no-store' });
+    if (r.ok) health = await r.json();
+  } catch (e) {}
+  if (health) {
+    AUTH_STATE.sms = !!(health.auth && health.auth.sms);
+    AUTH_STATE.call = !!health.call;
+  }
+  if (el('smsTab')) el('smsTab').hidden = !AUTH_STATE.sms;
+  try {
+    const r = await api('/api/auth/me');
+    await afterLogin(r.user);
+  } catch (e) {
+    if (e.status && e.status !== 401) { /* 服务端不可用时仍按游客用 */ }
+    updateAuthUI();
+  }
+  AUTH_STATE.ready = true;
+  try { document.documentElement.setAttribute('data-auth-ready', '1'); } catch (e) {}
+  window.addEventListener('online', () => {
+    if (!AUTH_STATE.user) return;
+    migrateGuestData(AUTH_STATE.user);
+    flushPending();
+  });
+}
+
+/* ── 送餐地址自动补全 ── */
+function renderRecentAddresses() {
+  const box = el('recentAddrRow');
+  if (!box) return;
+  const list = allDeliverRecords().slice(0, 3);
+  box.innerHTML = list.map(r =>
+    '<button class="addrChip" type="button" data-k="' + escHtml(normKey(r.place)) + '">' +
+    escHtml(r.place) + (deliverSummary(r) ? '<small>' + escHtml(deliverSummary(r)) + '</small>' : '') +
+    '</button>'
+  ).join('');
+  box.querySelectorAll('.addrChip').forEach(b => {
+    b.onclick = () => {
+      const rec = deliverRecord(b.dataset.k);
+      if (rec) applyDeliverRecord(rec);
+    };
+  });
+}
+function renderPlaceSuggest(query) {
+  const box = el('placeSuggest');
+  if (!box) return;
+  const q = normKey(query);
+  let list = allDeliverRecords();
+  if (q) {
+    list = list.filter(r => normKey(r.place).includes(q) || q.includes(normKey(r.place)));
+  }
+  list = list.slice(0, 5);
+  if (!list.length) { box.innerHTML = ''; box.classList.remove('on'); return; }
+  box.innerHTML = list.map(r =>
+    '<button class="suggestItem" type="button" data-k="' + escHtml(normKey(r.place)) + '">' +
+    '<b>' + escHtml(r.place) + '</b>' +
+    '<small>' + escHtml(deliverSummary(r) || '上次填过') + '</small>' +
+    '</button>'
+  ).join('');
+  box.classList.add('on');
+  box.querySelectorAll('.suggestItem').forEach(b => {
+    b.onclick = () => {
+      const rec = deliverRecord(b.dataset.k);
+      if (rec) { applyDeliverRecord(rec); }
+      box.classList.remove('on');
+    };
+  });
+}
+function applyDeliverRecord(rec) {
+  if (!rec) return;
+  place.name = rec.place;
+  if (rec.b) addr.b = rec.b;
+  if (rec.r) addr.r = rec.r;
+  if (Number(rec.floor) > 0) currentFloor = Number(rec.floor);
+  if (el('homeP')) el('homeP').value = place.name;
+  if (el('homeB')) el('homeB').value = addr.b;
+  if (el('homeR')) el('homeR').value = addr.r;
+  if (el('homeF')) el('homeF').value = currentFloor > 10 ? currentFloor : '';
+  renderFloorChips();
+  updatePreview();
+  saveLast();
+  const box = el('placeSuggest'); if (box) box.classList.remove('on');
+  renderPlaceHint();
+  toast('已按上次补全：' + [place.name, addr.b, addr.r].filter(Boolean).join(' '));
+}
+function renderPlaceHint() {
+  const hint = el('placeHint');
+  if (!hint) return;
+  const rec = deliverRecord(place.name);
+  const summary = deliverSummary(rec || {});
+  if (!rec || !summary) {
+    hint.hidden = true;
+    hint.innerHTML = '';
+    return;
+  }
+  const same = rec.b === addr.b && rec.r === addr.r && (!rec.floor || rec.floor === currentFloor);
+  hint.hidden = false;
+  hint.innerHTML = (same ? '上次就送到这里：' : '上次送到：') +
+    '<b>' + escHtml(summary) + '</b>' +
+    (same ? '' : '<button type="button" data-fill="1">填入</button>');
+  const b = hint.querySelector('button');
+  if (b) b.onclick = (e) => { e.preventDefault(); applyDeliverRecord(rec); };
+}
+
+/* ── 取餐点自动补全 ── */
+function renderRecentPickup() {
+  const box = el('recentPickupRow');
+  if (!box) return;
+  const list = allPickupRecords().slice(0, 3);
+  box.innerHTML = list.map(r =>
+    '<button class="addrChip" type="button" data-k="' + escHtml(normKey(r.shop)) + '">' +
+    escHtml(r.shop) + '</button>'
+  ).join('');
+  box.querySelectorAll('.addrChip').forEach(b => {
+    b.onclick = () => {
+      const rec = pickupRecord(b.dataset.k);
+      if (rec) applyPickupRecord(rec);
+    };
+  });
+}
+function renderShopSuggest(query) {
+  const box = el('shopSuggest');
+  if (!box) return;
+  const q = normKey(query);
+  let list = allPickupRecords();
+  if (q) list = list.filter(r => normKey(r.shop).includes(q) || q.includes(normKey(r.shop)));
+  list = list.slice(0, 5);
+  if (!list.length) { box.innerHTML = ''; box.classList.remove('on'); return; }
+  box.innerHTML = list.map(r =>
+    '<button class="suggestItem" type="button" data-k="' + escHtml(normKey(r.shop)) + '">' +
+    '<b>' + escHtml(r.shop) + '</b>' +
+    '<small>' + (r.code ? '上次 ' + escHtml(r.code) + ' 号' : '上次去过') + '</small>' +
+    '</button>'
+  ).join('');
+  box.classList.add('on');
+  box.querySelectorAll('.suggestItem').forEach(b => {
+    b.onclick = () => {
+      const rec = pickupRecord(b.dataset.k);
+      if (rec) applyPickupRecord(rec);
+      box.classList.remove('on');
+    };
+  });
+}
+function applyPickupRecord(rec) {
+  if (!rec) return;
+  pick.shop = rec.shop;
+  if (el('pkShop')) el('pkShop').value = rec.shop;
+  saveLast();
+  const box = el('shopSuggest'); if (box) box.classList.remove('on');
+  renderShopHint();
+  toast('已找到取餐点：' + rec.shop);
+}
+function renderShopHint() {
+  const hint = el('shopHint');
+  if (!hint) return;
+  const rec = pickupRecord(pick.shop);
+  if (!rec) { hint.hidden = true; hint.innerHTML = ''; return; }
+  hint.hidden = false;
+  hint.innerHTML = '上次在这里取餐：尾号 ' + escHtml(tailOf(rec.phone) || '—') +
+    ' · 取餐码 ' + escHtml(rec.code || '—') +
+    '<button type="button" data-fill="1">沿用上次</button>';
+  const b = hint.querySelector('button');
+  if (b) b.onclick = (e) => {
+    e.preventDefault();
+    if (rec.phone && el('pkPhone')) { pick.phone = rec.phone; el('pkPhone').value = rec.phone; }
+    if (rec.code && el('pkCode')) { pick.code = rec.code; el('pkCode').value = rec.code; }
+    if (typeof updatePickupPreview === 'function') updatePickupPreview();
+    saveLast();
+    toast('已沿用上次取餐信息');
+  };
+}
+
+function bindAddressAutofill() {
+  const p = el('homeP');
+  if (p) {
+    p.addEventListener('focus', () => renderPlaceSuggest(p.value));
+    p.addEventListener('input', () => { renderPlaceSuggest(p.value); renderPlaceHint(); });
+    p.addEventListener('change', () => {
+      const rec = deliverRecord(p.value);
+      if (rec) {
+        applyDeliverRecord(rec);
+      } else if (String(p.value || '').trim()) {
+        // 换了一个没送过的小区：清掉上一单的楼栋/房号，避免把旧地址带过去
+        if (addr.b || addr.r) {
+          addr.b = ''; addr.r = '';
+          if (el('homeB')) el('homeB').value = '';
+          if (el('homeR')) el('homeR').value = '';
+          updatePreview();
+          saveLast();
+        }
+      }
+      renderPlaceHint();
+    });
+    p.addEventListener('blur', () => setTimeout(() => {
+      const box = el('placeSuggest'); if (box) box.classList.remove('on');
+    }, 180));
+  }
+  const b = el('homeB'), r = el('homeR'), f = el('homeF');
+  [b, r, f].forEach(n => { if (n) n.addEventListener('change', () => rememberDeliverAddress()); });
+  const box = el('placeSuggest');
+  if (box) box.addEventListener('mousedown', e => e.preventDefault());
+
+  const shop = el('pkShop');
+  if (shop) {
+    shop.addEventListener('focus', () => renderShopSuggest(shop.value));
+    shop.addEventListener('input', () => { pick.shop = shop.value.trim(); renderShopSuggest(shop.value); renderShopHint(); });
+    shop.addEventListener('change', () => {
+      pick.shop = shop.value.trim();
+      const rec = pickupRecord(pick.shop);
+      renderShopHint();
+      if (rec) { toast('已找到取餐点：' + rec.shop); }
+      if (pick.shop) rememberPickupAddress();
+    });
+    shop.addEventListener('blur', () => setTimeout(() => {
+      const sb = el('shopSuggest'); if (sb) sb.classList.remove('on');
+    }, 180));
+  }
+  const pkPhone = el('pkPhone'), pkCode = el('pkCode');
+  if (pkPhone) pkPhone.addEventListener('change', () => rememberPickupAddress());
+  if (pkCode) pkCode.addEventListener('change', () => rememberPickupAddress());
+  const sbox = el('shopSuggest');
+  if (sbox) sbox.addEventListener('mousedown', e => e.preventDefault());
+}
+
+function bindAuthUI() {
+  if (el('acctBtn')) el('acctBtn').onclick = () => openAccount('login');
+  if (el('acctBack')) el('acctBack').onclick = leaveAuth;
+  if (el('authGuest')) el('authGuest').onclick = leaveAuth;
+  if (el('recLoginBtn')) bindRecLogin();
+
+  document.querySelectorAll('#authTabs .authTab').forEach(t => {
+    t.onclick = () => showAuthTab(t.dataset.tab);
+  });
+  if (el('toRegister')) el('toRegister').onclick = () => showAuthTab('register');
+  if (el('toLogin')) el('toLogin').onclick = () => showAuthTab('login');
+  if (el('toLogin2')) el('toLogin2').onclick = () => showAuthTab('login');
+  if (el('backToLogin')) el('backToLogin').onclick = () => showAuthTab('login');
+  if (el('forgotBtn')) el('forgotBtn').onclick = () => {
+    if (!AUTH_STATE.sms) { toast('短信服务未开通；忘记密码请联系管理员'); return; }
+    const p = phoneInput(el('loginPhone').value);
+    if (p) el('resetPhone').value = p;
+    showAuthTab('reset');
+  };
+  if (el('loginBtn')) el('loginBtn').onclick = doLogin;
+  if (el('registerBtn')) el('registerBtn').onclick = doRegister;
+  if (el('smsLoginBtn')) el('smsLoginBtn').onclick = doSmsLogin;
+  if (el('resetBtn')) el('resetBtn').onclick = doReset;
+  if (el('smsSendBtn')) el('smsSendBtn').onclick = () => sendSmsCode(
+    phoneInput(el('smsPhone').value), el('smsSendBtn'), 'smsErr', el('smsCode'));
+  if (el('resetSendBtn')) el('resetSendBtn').onclick = () => sendSmsCode(
+    phoneInput(el('resetPhone').value), el('resetSendBtn'), 'resetErr', el('resetCode'));
+  if (el('logoutBtn')) el('logoutBtn').onclick = doLogout;
+  if (el('changePwdBtn')) el('changePwdBtn').onclick = openPwd;
+  if (el('pwdClose')) el('pwdClose').onclick = () => el('pwdOverlay').classList.remove('on');
+  if (el('pwdCancel')) el('pwdCancel').onclick = () => el('pwdOverlay').classList.remove('on');
+  if (el('pwdSave')) el('pwdSave').onclick = doChangePwd;
+  if (el('pwdOverlay')) el('pwdOverlay').onclick = (e) => { if (e.target === el('pwdOverlay')) el('pwdOverlay').classList.remove('on'); };
+  if (el('pwdNew2')) el('pwdNew2').addEventListener('keydown', e => { if (e.key === 'Enter') doChangePwd(); });
+  if (el('syncNowBtn')) el('syncNowBtn').onclick = async () => {
+    if (!AUTH_STATE.user) { openAccount('login'); return; }
+    busyBtn(el('syncNowBtn'), true, '同步中…');
+    await migrateGuestData(AUTH_STATE.user);
+    await refreshAccountData();
+    busyBtn(el('syncNowBtn'), false);
+    toast('已同步本机记录和地址');
+  };
+  ['loginPwd', 'regPwd', 'regPwd2', 'resetPwd'].forEach(id => {
+    const n = el(id); if (!n) return;
+    n.addEventListener('keydown', e => { if (e.key === 'Enter') { if (id === 'loginPwd') doLogin(); else if (id === 'regPwd2') doRegister(); } });
+  });
+  document.querySelectorAll('.eye').forEach(b => {
+    b.onclick = () => {
+      const n = el(b.dataset.eye);
+      if (!n) return;
+      const show = n.type === 'password';
+      n.type = show ? 'text' : 'password';
+      b.textContent = show ? '隐藏' : '显示';
+    };
+  });
+  ['loginPhone', 'regPhone', 'smsPhone', 'resetPhone'].forEach(id => {
+    const n = el(id); if (!n) return;
+    n.addEventListener('input', () => { n.value = phoneInput(n.value); });
+  });
+  ['smsCode', 'resetCode'].forEach(id => {
+    const n = el(id); if (!n) return;
+    n.addEventListener('input', () => { n.value = digitsOf(n.value).slice(0, 6); });
+  });
+  if (el('smsTab')) el('smsTab').hidden = !AUTH_STATE.sms;
+
+  // 电话播报
+  if (el('callBtn')) el('callBtn').onclick = openCall;
+  if (el('callClose')) el('callClose').onclick = () => el('callOverlay').classList.remove('on');
+  if (el('callOverlay')) el('callOverlay').onclick = (e) => { if (e.target === el('callOverlay')) el('callOverlay').classList.remove('on'); };
+  if (el('callPhone')) {
+    el('callPhone').value = readJSON(CALL_PHONE_KEY, '');
+    el('callPhone').addEventListener('input', () => {
+      el('callPhone').value = phoneInput(el('callPhone').value);
+      writeJSON(CALL_PHONE_KEY, el('callPhone').value);
+      updateDialLink();
+    });
+    updateDialLink();
+  }
+  if (el('callPrefetch')) el('callPrefetch').onclick = prefetchCallAudio;
+  if (el('callOutbound')) el('callOutbound').onclick = outboundCall;
+}
+
+/* ── 电话播报 ── */
+let callText = '';
+let loudCtx = null;
+let loudSrc = null;
+
+async function ttsUrl(text) {
+  const ck = currentVoice() + '|' + text;
+  let url = ttsCache.get(ck);
+  if (url) return url;
+  const r = await fetch('/api/tts?text=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(currentVoice()));
+  if (!r.ok) throw new Error('tts ' + r.status);
+  url = URL.createObjectURL(await r.blob());
+  if (ttsCache.size < 80) ttsCache.set(ck, url);
+  return url;
+}
+
+async function playLoud(text) {
+  if (!text) return;
+  pushHistory(text);
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
+  let url;
+  try {
+    url = await ttsUrl(text);
+  } catch (e) {
+    speak(text, true);
+    return;
+  }
+  try {
+    if (!loudCtx) loudCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (loudCtx.state === 'suspended') await loudCtx.resume();
+    const buf = await (await fetch(url)).arrayBuffer();
+    const audio = await loudCtx.decodeAudioData(buf.slice(0));
+    try { if (loudSrc) loudSrc.stop(); } catch (e) {}
+    const src = loudCtx.createBufferSource();
+    src.buffer = audio;
+    const gain = loudCtx.createGain();
+    gain.gain.value = 1.8;
+    const comp = loudCtx.createDynamicsCompressor();
+    comp.threshold.value = -18;
+    comp.knee.value = 12;
+    comp.ratio.value = 6;
+    comp.attack.value = 0.003;
+    comp.release.value = 0.25;
+    src.connect(gain);
+    gain.connect(comp);
+    comp.connect(loudCtx.destination);
+    src.start();
+    loudSrc = src;
+  } catch (e) {
+    try {
+      const a = new Audio(url);
+      a.volume = 1;
+      ttsAudio = a;
+      await a.play();
+    } catch (e2) {
+      speak(text, true);
+    }
+  }
+}
+
+function updateDialLink() {
+  const link = el('callDial');
+  if (!link) return;
+  const p = phoneInput(el('callPhone') ? el('callPhone').value : '');
+  link.href = 'tel:' + p;
+}
+function renderCallPhrases() {
+  const box = el('callPhrases');
+  if (!box) return;
+  const items = (scenesObj()[scene] || []).slice()
+    .sort((a, b) => (b.f || 0) - (a.f || 0))
+    .slice(0, 8)
+    .map(it => applyVars(it.t));
+  const extra = [];
+  if (followSay) extra.push(followSay);
+  history.slice(0, 2).forEach(t => { if (!items.includes(t)) extra.push(t); });
+  const all = items.concat(extra).slice(0, 10);
+  box.innerHTML = all.map((t, i) =>
+    '<button class="callPhrase" type="button" data-text="' + escHtml(t) + '">' +
+    '<span class="sp">' + (i + 1) + '</span><span>' + escHtml(t) + '</span></button>'
+  ).join('');
+  box.querySelectorAll('.callPhrase').forEach(b => {
+    b.onclick = () => {
+      callText = b.dataset.text || '';
+      box.querySelectorAll('.callPhrase').forEach(x => x.style.borderColor = '');
+      b.style.borderColor = '#12B3A0';
+      playLoud(callText);
+    };
+  });
+}
+function openCall() {
+  if (!el('callOverlay')) return;
+  callText = '';
+  renderCallPhrases();
+  if (el('callCloud')) el('callCloud').hidden = !AUTH_STATE.call;
+  if (el('callPhone') && !el('callPhone').value) el('callPhone').value = readJSON(CALL_PHONE_KEY, '');
+  updateDialLink();
+  el('callOverlay').classList.add('on');
+}
+async function prefetchCallAudio() {
+  const texts = [...document.querySelectorAll('#callPhrases .callPhrase')]
+    .map(b => b.dataset.text).filter(Boolean);
+  if (!texts.length) { toast('没有可缓存的句子'); return; }
+  let ok = 0;
+  for (const t of texts) {
+    try { await ttsUrl(t); ok++; } catch (e) {}
+  }
+  toast(ok ? ('已缓存 ' + ok + ' 句，通话中可直接播') : '缓存失败，仍可现场合成');
+}
+async function outboundCall() {
+  const phone = phoneInput(el('callPhone') ? el('callPhone').value : '');
+  if (!validPhoneInput(phone)) { toast('先填顾客的 11 位手机号'); return; }
+  const text = callText || ((document.querySelector('#callPhrases .callPhrase') || {}).dataset || {}).text;
+  if (!text) { toast('先点一句要播报的话'); return; }
+  const btn = el('callOutbound');
+  busyBtn(btn, true, '呼叫中…');
+  try {
+    await api('/api/call', { method: 'POST', body: { phone: phone, text: text } });
+    toast('已交给服务器外呼，顾客手机很快会响');
+  } catch (e) {
+    let msg = e.message;
+    if (e.payload && e.payload.hint) msg += '；' + e.payload.hint;
+    toast(msg);
+  } finally {
+    busyBtn(btn, false);
+  }
+}
+
 /* ══════════ 送餐记录：这单送完了 ══════════ */
 const ORDER_KEY = 'cs_orders_v1';
 const TIERS = [
@@ -1999,8 +3638,13 @@ function dayKey(d) {
   const dd = String(x.getDate()).padStart(2, '0');
   return x.getFullYear() + '-' + m + '-' + dd;
 }
-function loadOrders() {
+function loadLocalOrders() {
   try { return JSON.parse(localStorage.getItem(ORDER_KEY) || '{}'); } catch (e) { return {}; }
+}
+/* 登录后以云端为准；未登录 / 断网时用本机记录 */
+function loadOrders() {
+  if (AUTH_STATE.user && AUTH_STATE.serverOrders) return AUTH_STATE.serverOrders;
+  return loadLocalOrders();
 }
 function saveOrders(o) {
   try { localStorage.setItem(ORDER_KEY, JSON.stringify(o)); } catch (e) {}
@@ -2011,10 +3655,25 @@ function todayStat() {
 }
 
 function finishOrder() {
-  const o = loadOrders();
   const k = dayKey();
   const now = new Date();
   const hm = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+
+  if (AUTH_STATE.user) {
+    if (!AUTH_STATE.serverOrders) AUTH_STATE.serverOrders = {};
+    const stat = bumpDay(AUTH_STATE.serverOrders, k, hm);
+    AUTH_STATE.total = (AUTH_STATE.total || 0) + 1;
+    writeJSON(SERVER_ORDERS_PREFIX + AUTH_STATE.user.id, AUTH_STATE.serverOrders);
+    queueOrder({
+      event_id: uuid(), day: k, hm: hm, mode: mode,
+      place: mode === 'pickup' ? (pick.shop || '') : (place.name || ''),
+      uid: AUTH_STATE.user.id,
+    });
+    flushPending();
+    return { stat: stat, hm: hm };
+  }
+
+  const o = loadLocalOrders();
   const cur = o[k] || { count: 0, first: hm, last: hm };
   if (!cur.first) cur.first = hm;
   cur.count += 1;
@@ -2095,20 +3754,30 @@ function openRecords() {
       + (tNext ? ' · 再 ' + (tNext.min - today.count) + ' 单升「' + tNext.name + '」' : '')
     : '送完一单，在对话页点「这单送完了」';
 
-  // 近 7 天
-  const rows = [];
+  // 近 7 天 / 本月 / 今年
   const base = new Date();
-  let weekTotal = 0;
+  const todayK = dayKey();
+  const monthPrefix = todayK.slice(0, 7);
+  const yearPrefix = todayK.slice(0, 4);
   const days = [];
-  for (let i = 0; i < 7; i++) {
+  let weekTotal = 0, monthTotal = 0, yearTotal = 0;
+  for (let i = 0; i < 30; i++) {
     const d = new Date(base.getTime() - i * 86400000);
     const k = dayKey(d);
     const c = (o[k] || {}).count || 0;
-    weekTotal += c;
+    if (i < 7) weekTotal += c;
     days.push({ k: k, c: c, d: d });
   }
-  const max = Math.max(1, ...days.map(x => x.c));
+  Object.keys(o).forEach(function (k) {
+    const c = (o[k] || {}).count || 0;
+    if (k.slice(0, 7) === monthPrefix) monthTotal += c;
+    if (k.slice(0, 4) === yearPrefix) yearTotal += c;
+  });
+  el('recWeek').textContent = weekTotal;
+  el('recMonth').textContent = monthTotal;
+  el('recYear').textContent = yearTotal;
 
+  const max = Math.max(1, ...days.map(x => x.c));
   el('recList').innerHTML = days.map(function (x, i) {
     const label = i === 0 ? '今天' : i === 1 ? '昨天' : (x.d.getMonth() + 1) + '月' + x.d.getDate() + '日';
     const w = Math.round(x.c / max * 100);
@@ -2117,8 +3786,7 @@ function openRecords() {
     return '<div class="recRow"><span>' + label + '</span>'
       + '<div class="recBar"><u style="width:' + w + '%;background:' + col + '"></u></div>'
       + '<b style="color:' + col + '">' + x.c + '</b><i>单</i></div>';
-  }).join('')
-    + '<div class="recRow" style="background:#F5FAFF"><span>近 7 天合计</span><b style="margin-left:auto">' + weekTotal + '</b><i>单</i></div>';
+  }).join('');
 
   setScreen('rec');
 }
@@ -2177,8 +3845,33 @@ function stripAdmin(s) {
     .trim();
 }
 
+function splitAddressBlocks(lines) {
+  const start = /(?:省|市|区|县|镇|街道|小区|公寓|广场|花园|大厦|苑|府|村|学校|学院|大学|医院|宿舍)/;
+  const bad = /(?:今日|天气|订单|送达|分钟|奖励|抢单|货品|刷新|上线|待取货|配送中|路线|新任务|活动|商家已|距您|km|公里|电话|手机号|标签|备注|复制|搜索)/i;
+  const cont = /(?:栋|幢|座|单元|室|层|楼|号|路|街|村)/;
+  const out = [];
+  for (const raw of lines) {
+    const x = String(raw || '').trim();
+    if (!x) continue;
+    if (bad.test(x)) continue;
+    if (start.test(x)) out.push(x);
+    else if (out.length && cont.test(x) && x.length <= 50) out[out.length - 1] += x;
+  }
+  return out;
+}
+function cleanAddressLine(x) {
+  return String(x || '')
+    .replace(/^\s*(?:收货地址|送餐地址|取货地址|地址|送到|送达|所在地)\s*[：:]?\s*/, '')
+    .replace(/\s*\|.*$/, '')
+    .trim();
+}
+
 function parseOrder(raw) {
-  const text = String(raw || '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
+  const text = String(raw || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
   if (!text) return null;
 
   const out = {};
@@ -2187,32 +3880,91 @@ function parseOrder(raw) {
   const phone = (text.match(/1[3-9]\d{9}/) || [])[0];
   if (phone) out.phone = phone;
 
-  // 姓名（带标签优先）
-  let name = (text.match(/(?:收货人|收件人|联系人|客户|姓名)\s*[：:]\s*([\u4e00-\u9fa5A-Za-z·]{2,12})/) || [])[1];
+  // 姓名（带标签优先；OCR 经常把冒号吃掉）
+  let name = (text.match(/(?:收货人|收件人|联系人|客户|姓名)\s*[：:]?\s*([\u4e00-\u9fa5A-Za-z·]{2,20})/) || [])[1];
+  if (!name) {
+    const m = text.match(/([A-Za-z][A-Za-z·]{1,19})[^A-Za-z\n]{0,6}(?:先生|女士)/);
+    if (m) name = m[1];
+  }
   if (!name) {
     const m = text.match(/(?:收货人|收件人|联系人|姓名)\s*([\u4e00-\u9fa5·]{2,4})(?=[\s\d]|$)/);
     if (m) name = m[1];
   }
+  if (!name) {
+    const lines = text.split(/\n+/).map(x => x.trim()).filter(Boolean);
+    const i = lines.findIndex(x => /^(?:联系人|收货人|收件人|姓名)$/.test(x));
+    if (i >= 0) {
+      const n = lines.slice(i + 1).find(x => /^[\u4e00-\u9fa5A-Za-z·]{2,20}$/.test(x));
+      if (n) name = n;
+    }
+  }
   if (name) out.name = name;
 
-  // 地址（带标签优先，其次按关键词找句子）
-  let addr = (text.match(/(?:收货地址|地址|送到|送达|所在地)\s*[：:]\s*([^，,;；]{4,80})/) || [])[1];
+  const lines = text.split(/\n+/).map(x => x.trim()).filter(Boolean);
+  const blocks = splitAddressBlocks(lines);
+  let addr = '';
+  // 真实订单常见“上面取货地址、下面送货地址”；第一段取货，第二段送货
+  if (blocks.length >= 2) {
+    out.pickupAddr = cleanAddressLine(blocks[0]);
+    addr = cleanAddressLine(blocks[1]);
+    out.multiOrder = blocks.length > 2;
+  }
+  // 商家名：取第一个地址前以“店/超市/便利…”结尾的行
+  const storeLine = lines.find(x =>
+    /(?:店|超市|便利店|药房|餐饮|咖啡|奶茶)$/.test(x) &&
+    !/(?:省|市|区|路|街|号|栋|室)/.test(x)
+  );
+  if (storeLine) out.shop = storeLine;
+
+  // 地址（先按行找“地址 xxx”，截图 OCR 往往没有冒号）
+  for (const line of lines) {
+    const m = line.match(/^\s*(?:收货地址|送餐地址|地址|送到|送达|所在地)\s*[：:]?\s*(.+?)\s*(?:\||$)/);
+    if (m) {
+      let v = m[1].trim();
+      v = v.split(/\s*(?:手机号|手机|电话|取餐码|取餐号|取餐序号|单号|订单号|商家|店铺|备注|联系人|收货人|收件人)\s*[：:]?/)[0].trim();
+      if (v.length >= 4) { addr = v; break; }
+    }
+  }
   if (!addr) {
-    const m = text.match(/[^ ，,;；]{0,20}(?:省|市|区|县|镇|街道)[^，,;；]{0,60}/);
+    const m = text.match(/(?:收货地址|送餐地址|地址|送到|送达|所在地)[ \t]*[：:]?[ \t]*([^，,;；|\n]{4,80})/);
+    if (m) addr = m[1].trim();
+  }
+  if (!addr) {
+    // 单地址场景：选一条地点行
+    const cands = lines.filter(x =>
+      /(?:小区|花园|公寓|大厦|苑|府|村|学校|学院|大学|医院|广场|宿舍楼|校区)/.test(x) &&
+      !/(?:编辑地址|地址|搜索|标签|保存地址|删除地址|粘贴文本|手机号|联系人)/.test(x)
+    );
+    const placeScore = (x) => {
+      let n = 0;
+      if (/(?:学院|大学|学校)/.test(x)) n += 6;
+      if (/(?:宿舍楼|公寓楼|教学楼|小区|花园|公寓|大厦|苑|府|村|医院|广场)/.test(x)) n += 3;
+      if (/校区/.test(x)) n += 1;
+      if (/\d/.test(x)) n += 1;
+      return n;
+    };
+    cands.sort((a, b) => placeScore(b) - placeScore(a) || b.length - a.length);
+    if (cands.length) addr = cands[0].replace(/\|.*$/, '').trim();
+  }
+  if (!addr) {
+    const m = text.match(/[^ ，,;；\n]{0,20}(?:省|市|区|县|镇|街道)[^，,;；\n]{0,60}/);
     if (m) addr = m[0];
   }
   if (!addr) {
-    const m = text.match(/[^ ，,;；]{0,26}(?:小区|花园|公寓|大厦|苑|府|城|村|学校|学院|医院|广场)[^，,;；]{0,40}/);
+    const m = text.match(/[^ ，,;；\n]{0,26}(?:小区|花园|公寓|大厦|苑|府|城|村|学校|学院|医院|广场)[^，,;；\n]{0,40}/);
     if (m) addr = m[0];
   }
   if (!addr) return out.name || out.phone ? out : null;
 
+  addr = addr.replace(/\s*\|.*$/, '').trim();
   addr = addr.replace(/^(中国)?(山东省|)?.{0,8}?(市|区|县)/, function (m) { return m.length > 10 ? m.slice(-0) : m; }).trim();
 
-  // 楼栋
-  let bm = addr.match(/(\d{1,3}|[一二三四五六七八九十]{1,3})\s*(号楼|栋|幢|座)/);
-  if (!bm) bm = addr.match(/(\d{1,3})\s*(号公寓|号院)/);
+  // 楼栋（支持 3号楼 / A1宿舍楼 / 5栋）
+  let bm = addr.match(/([A-Za-z]?\d{1,3}|[A-Za-z]|[一二三四五六七八九十]{1,3})\s*(号楼|栋|幢|座|号公寓|号院|宿舍楼|公寓楼|教学楼)/);
+  if (!bm) bm = addr.match(/([A-Za-z]?\d{1,3}|[A-Za-z])\s*楼/);
   if (bm) out.b = bm[0].replace(/\s+/g, '');
+  const fm = addr.match(/(\d{1,2})\s*楼/);
+  if (fm) out.floor = Number(fm[1]);
 
   // 单元
   const um = addr.match(/(\d{1,2})\s*单元/);
@@ -2232,7 +3984,11 @@ function parseOrder(raw) {
 
   // 小区名：地址里最后一段"XX小区"这种
   let place = (addr.match(/[^ ，,;；]{2,18}(?:小区|花园|公寓|大厦|苑|府|城|村|学校|学院|医院|广场)/) || [])[0];
-  if (place) place = stripAdmin(place);
+  if (place) {
+    const plain = stripAdmin(place);
+    // “青岛城市学院”不能被当成“青岛市”剥成“学院”
+    if (plain.length >= 4 || plain.length >= place.length - 1) place = plain;
+  }
   if (!place) {
     const cut = bm ? addr.slice(0, addr.indexOf(bm[0])) : addr.replace(/\d.*$/, '');
     place = stripAdmin(cut).replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g, '').slice(0, 20);
@@ -2251,9 +4007,23 @@ function applyOrder(o) {
   if (o.b) { addr.b = o.b; el('homeB').value = o.b; filled.push(o.b); }
   if (o.r) { addr.r = o.r; el('homeR').value = o.r; filled.push(o.r); }
   if (o.unit && !addr.b) { addr.b = o.unit; el('homeB').value = o.unit; }
+  if (o.pickupAddr) {
+    pick.addr = o.pickupAddr;
+    if (el('pkAddr')) el('pkAddr').value = o.pickupAddr;
+    filled.push('取货地址');
+  }
+  if (o.shop) {
+    pick.shop = o.shop;
+    if (el('pkShop')) el('pkShop').value = o.shop;
+    filled.push(o.shop);
+  }
 
-  // 房号推楼层
-  if (o.r) {
+  // 楼层：优先用地址里识别到的“X楼”
+  if (Number(o.floor) > 0) {
+    currentFloor = Number(o.floor);
+    if (typeof renderFloorChips === 'function') renderFloorChips();
+    el('homeF').value = currentFloor > 10 ? currentFloor : '';
+  } else if (o.r) {
     const rs = String(o.r);
     // 602 到 6 楼；1203 到 12 楼；2102 到 21 楼
     const f = rs.length >= 4 ? parseInt(rs.slice(0, rs.length - 2), 10) : parseInt(rs.charAt(0), 10);
@@ -2272,9 +4042,11 @@ function applyOrder(o) {
 
   updatePreview();
   saveLast();
+  if (o.place) rememberDeliverAddress();
 
   if (filled.length) {
-    toast('已识别：' + filled.join(' ') + (o.phone ? ' · 尾号 ' + phoneTail() : ''));
+    toast('已识别：' + filled.join(' ') + (o.phone ? ' · 尾号 ' + phoneTail() : '') +
+      (o.multiOrder ? ' · 多单只取第一单' : ''));
   } else if (o.name) {
     toast('识别到收件人 ' + o.name + '，地址没认出来');
   } else {
@@ -2282,19 +4054,35 @@ function applyOrder(o) {
   }
 }
 
+function setPasteMode(mode, text, note) {
+  const isPickup = mode === 'pickup';
+  el('pasteOverlay').dataset.mode = isPickup ? 'pickup' : 'deliver';
+  el('pasteTitle').textContent = isPickup
+    ? '确认取餐信息（截图识别/粘贴后都可以改）'
+    : '确认订单信息（截图识别/粘贴后都可以改）';
+  el('pasteBox').placeholder = isPickup
+    ? '例如：取餐码 手机尾号 商家名'
+    : '例如：姓名 手机号 小区 楼栋 房号';
+  el('pasteBox').value = text || '';
+  const hint = el('pasteHint');
+  if (hint) {
+    hint.textContent = note || '';
+    hint.hidden = !note;
+  }
+  el('pasteOverlay').classList.add('on');
+  setTimeout(() => el('pasteBox').focus(), 120);
+}
+
 async function pasteOrder() {
-  // 先试剪贴板（需要 https 或 localhost）
   if (navigator.clipboard && window.isSecureContext) {
     try {
       const txt = await navigator.clipboard.readText();
       if (txt && txt.trim()) { applyOrder(parseOrder(txt)); return; }
     } catch (e) {}
   }
-  // 读不到就弹框手动粘
-  el('pasteBox').value = '';
-  el('pasteOverlay').classList.add('on');
-  setTimeout(() => el('pasteBox').focus(), 120);
+  setPasteMode('deliver', '', '');
 }
+
 function parsePickup(raw) {
   const text = String(raw || '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
   if (!text) return null;
@@ -2304,10 +4092,14 @@ function parsePickup(raw) {
   if (phone) out.phone = phone;
 
   // 取餐码 / 单号：#38、取餐码 38、单号 20241108...
-  let code = (text.match(/(?:取餐码|取餐号|单号|订单号|号|编号)\s*[：:#]?\s*([A-Za-z0-9\-]{1,14})/) || [])[1];
+  let code = (text.match(/(?:取餐码|取餐号|取餐序号|单号|订单号|编号|序号)\s*[：:#]?\s*([A-Za-z0-9\-]{1,14})/) || [])[1];
   if (!code) {
-    const m = text.match(/\b(\d{2,12})\b/);
-    if (m) code = m[1];
+    // 地址截图里的门牌/距离/手机号不能当取餐码
+    const noPhone = text.replace(/1[3-9]\d{9}/g, ' ');
+    if (!/(?:地址|小区|号楼|宿舍|室|省|市|区|距您)/.test(text)) {
+      const m = noPhone.match(/\b(\d{2,12})\b/);
+      if (m) code = m[1];
+    }
   }
   if (code) out.code = code;
 
@@ -2323,10 +4115,15 @@ function applyPickup(o) {
 
   if (o.code) { pick.code = o.code; if (el('pkCode')) el('pkCode').value = o.code; filled.push('取餐码 ' + o.code); }
   if (o.phone) { pick.phone = o.phone; if (el('pkPhone')) el('pkPhone').value = o.phone; filled.push('尾号 ' + phoneTail()); }
-  if (o.shop) { place.name = place.name; }
+  if (o.shop) {
+    pick.shop = o.shop;
+    if (el('pkShop')) el('pkShop').value = o.shop;
+    filled.push(o.shop);
+  }
 
   if (typeof updatePickupPreview === 'function') updatePickupPreview();
   saveLast();
+  rememberPickupAddress();
 
   if (filled.length) toast('已识别：' + filled.join(' · '));
   else toast('没认出单号，手动补一下');
@@ -2339,12 +4136,124 @@ async function pastePickup() {
       if (txt && txt.trim()) { applyPickup(parsePickup(txt)); return; }
     } catch (e) {}
   }
-  el('pasteBox').value = '';
-  el('pasteBox').placeholder = '例如：取餐码 38 尾号 5025';
-  el('pasteOverlay').classList.add('on');
-  el('pasteOverlay').dataset.mode = 'pickup';
-  setTimeout(() => el('pasteBox').focus(), 120);
+  setPasteMode('pickup', '', '');
 }
+
+/* ── 截图识别（Tesseract，服务端 OCR） ── */
+let ocrPreviewUrl = null;
+function closeOcr() {
+  el('ocrOverlay').classList.remove('on');
+  if (ocrPreviewUrl) { try { URL.revokeObjectURL(ocrPreviewUrl); } catch (e) {} ocrPreviewUrl = null; }
+}
+function loadImageFile(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('图片打不开')); };
+    img.src = url;
+  });
+}
+async function shrinkScreenshot(file) {
+  if (!/^image\//.test(file.type || '')) throw new Error('请选择图片文件');
+  if (file.size > 15 * 1024 * 1024) throw new Error('图片太大，请先裁剪');
+  const img = await loadImageFile(file);
+  let w = img.naturalWidth || img.width;
+  let h = img.naturalHeight || img.height;
+  const max = 1800;   // 长截图压到 1800 长边，中文仍清晰，上传从 ~900KB 降到 ~150KB
+  const scale = Math.min(1, max / Math.max(w, h));
+  w = Math.max(1, Math.round(w * scale));
+  h = Math.max(1, Math.round(h * scale));
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(img, 0, 0, w, h);
+  return await new Promise((resolve) => {
+    canvas.toBlob((b) => resolve(b || file), 'image/jpeg', 0.9);
+  });
+}
+
+async function recognizeScreenshot(file, mode) {
+  if (!file) return;
+  const pickup = mode === 'pickup';
+  const btn = el(pickup ? 'shotPickupBtn' : 'shotOrderBtn');
+  const oldText = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.querySelector('.shotText b').textContent = '正在识别…'; }
+  ocrPreviewUrl = URL.createObjectURL(file);
+  el('ocrPreview').src = ocrPreviewUrl;
+  el('ocrTitle').textContent = pickup ? '正在识别取餐截图…' : '正在识别订单截图…';
+  el('ocrStatus').textContent = '正在读取截图里的文字，约 2–6 秒…';
+  el('ocrOverlay').classList.add('on');
+  try {
+    const blob = await shrinkScreenshot(file);
+    const r = await fetch('/api/ocr', {
+      method: 'POST',
+      headers: { 'Content-Type': blob.type || 'image/jpeg' },
+      body: blob,
+    });
+    let j = {};
+    try { j = await r.json(); } catch (e) {}
+    if (!r.ok) {
+      const err = new Error(j.error || '截图识别失败');
+      err.code = j.code || '';
+      throw err;
+    }
+    const text = String(j.text || '').trim();
+    if (!text) throw new Error('截图里没读到文字');
+    closeOcr();
+    if (pickup) {
+      const pk = parsePickup(text);
+      const order = parseOrder(text);
+      const syncDelivery = !!(order && (order.place || order.b || order.r || order.phone));
+      const good = !!(syncDelivery || (pk && (pk.code || pk.phone)));
+      if (good) {
+        if (syncDelivery) applyOrder(order);   // 先把地址/手机号写进送餐草稿
+        if (pk) applyPickup(pk);               // 再填取餐码/商家
+        toast(syncDelivery ? '取餐信息已识别，地址/手机号已同步到送餐' : '取餐信息已识别');
+      } else {
+        setPasteMode(mode, text, '截图识别结果，确认或修改后点「识别」');
+      }
+    } else {
+      const o = parseOrder(text);
+      const good = !!(o && (o.place || o.b || o.r || o.phone));
+      if (good) {
+        applyOrder(o);
+        toast('截图识别完成');
+      } else {
+        setPasteMode(mode, text, '截图识别结果，确认或修改后点「识别」');
+      }
+    }
+  } catch (e) {
+    closeOcr();
+    if (e.code === 'ocr_not_configured') {
+      toast('服务器截图识别未安装，先用粘贴');
+      setPasteMode(mode, '', '截图识别暂不可用，可以粘贴订单文字');
+    } else if (e.code === 'rate_limited') {
+      toast(e.message || '识别太频繁');
+    } else {
+      toast(e.message || '截图识别失败，可以改用粘贴');
+      setPasteMode(mode, '', '截图没识别成功，可以粘贴文字或重新截图');
+    }
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = oldText; }
+  }
+}
+function bindScreenshot(btnId, inputId, mode) {
+  const b = el(btnId), i = el(inputId);
+  if (!b || !i) return;
+  b.onclick = () => i.click();
+  i.onchange = () => {
+    const f = i.files && i.files[0];
+    i.value = '';
+    if (f) recognizeScreenshot(f, mode);
+  };
+}
+bindScreenshot('shotOrderBtn', 'shotOrderInput', 'deliver');
+bindScreenshot('shotPickupBtn', 'shotPickupInput', 'pickup');
+if (el('ocrClose')) el('ocrClose').onclick = closeOcr;
+if (el('ocrOverlay')) el('ocrOverlay').onclick = (e) => { if (e.target === el('ocrOverlay')) closeOcr(); };
 /* ══════════ 一键导航 ══════════ */
 let addrConfirmed = false;   // 这一单是否已确认地址（决定牌子上写不写送到哪）
 
@@ -2411,20 +4320,32 @@ function saveLast() {
   try {
     localStorage.setItem(LAST_KEY, JSON.stringify({
       place: place.name, b: addr.b, r: addr.r, floor: currentFloor,
-      phone: pick.phone, code: pick.code,
+      code: pick.code, shop: pick.shop, pickAddr: pick.addr,
     }));
   } catch (e) {}
+}
+function isOldSeedLast(d) {
+  if (!d) return false;
+  const ph = String(d.phone || '').replace(/\D/g, '');
+  const b = String(d.b || '').replace(/\s/g, '');
+  // 旧版演示的种子地址：不管电话/楼层有没有被改过，都清掉
+  return String(d.place || '').trim() === '阳光小区' &&
+    (b === '3号楼' || b === '3 号楼') &&
+    String(d.r || '').trim() === '602';
 }
 function loadLast() {
   try {
     const d = JSON.parse(localStorage.getItem(LAST_KEY) || 'null');
     if (!d) return false;
+    if (isOldSeedLast(d)) { localStorage.removeItem(LAST_KEY); return false; }
     if (d.place && !String(d.place).includes('://')) place.name = d.place;
     if (d.b) addr.b = d.b;
     if (d.r) addr.r = d.r;
     if (Number(d.floor) > 0) currentFloor = Number(d.floor);
-    if (d.phone) pick.phone = d.phone;
+    // 手机号不跨页面/刷新恢复，避免上一单号码看起来像“默认值”
     if (d.code) pick.code = d.code;
+    if (d.shop) pick.shop = d.shop;
+    if (d.pickAddr) pick.addr = d.pickAddr;
     return true;
   } catch (e) { return false; }
 }
@@ -2551,18 +4472,20 @@ el('todayBtn').onclick = openRecords;
 el('recBack').onclick = () => { setScreen('home'); renderTodayChip(); };
 window.addEventListener('resize', () => { if (!el('bubble').hidden) renderTour(); });
 /* ══════════ 封面轮播 ══════════ */
+window.__geoPending = true;
 (function heroCarousel() {
   const slides = [...document.querySelectorAll('#heroSlides .slide')];
   if (slides.length < 2) return;
   const cap = el('heroCap');
   let i = 0;
   slides[0].classList.add('on');
-  if (cap) cap.textContent = slides[0].dataset.cap || '';
+  if (cap && !window.__geoPending) cap.textContent = slides[0].dataset.cap || '';
   const amb = document.getElementById('ambient');
   const setAmb = (s) => { if (amb) amb.style.backgroundImage = s.style.backgroundImage; };
   setAmb(slides[0]);
 
   setInterval(() => {
+    if (window.__heroLocked) return;
     if (document.hidden) return;
     if (document.body.classList.contains('touring')) return;
     const home = el('home');
@@ -2570,12 +4493,12 @@ window.addEventListener('resize', () => { if (!el('bubble').hidden) renderTour()
     slides[i].classList.remove('on');
     i = (i + 1) % slides.length;
     slides[i].classList.add('on');
-    if (cap) cap.textContent = slides[i].dataset.cap || '';
+    if (cap && !window.__geoPending) cap.textContent = slides[i].dataset.cap || '';
     // 背景那层不再跟着切：每次重新模糊整屏，代价太大
   }, 5000);
 })();
 
-/* ══════════ 天气（山东 · 济南） ══════════ */
+/* ══════════ 天气常量 ══════════ */
 const WX = {
   113:['☀️','晴'],116:['⛅','多云'],119:['☁️','阴'],122:['☁️','阴'],
   143:['🌫️','雾'],248:['🌫️','雾'],260:['🌫️','雾'],
@@ -2602,12 +4525,14 @@ function renderDays(days) {
   }).join('');
 }
 
-/* 先用默认值兜底，联网成功后再覆盖 */
-renderDays([
-  { mintempC: '9',  maxtempC: '18', hourly: [{}, {}, {}, {}, { weatherCode: '113' }] },
-  { mintempC: '11', maxtempC: '18', hourly: [{}, {}, {}, {}, { weatherCode: '119' }] },
-  { mintempC: '3',  maxtempC: '13', hourly: [{}, {}, {}, {}, { weatherCode: '296' }] },
-]);
+/* 首次进入先显示占位，定位成功后再覆盖，不写死济南 */
+(function placeholderDays() {
+  const box = el('dayRow');
+  if (!box) return;
+  box.innerHTML = ['今天', '明天', '后天'].map(x =>
+    `<div class="dayItem">${x}<b>--°</b><span class="dayWx">定位后更新</span></div>`
+  ).join('');
+})();
 
 function renderWxTip(cur) {
   const box = el('wxTip');
@@ -2625,26 +4550,230 @@ function renderWxTip(cur) {
   box.textContent = msg;
 }
 
-async function loadWeather() {
+/* ══════════ 高德定位 / 天气 / 地区壁纸 ══════════ */
+function shortPlace(s, suffix) {
+  let v = String(s || '').trim();
+  if (!v) return '';
+  const tails = ['特别行政区', '维吾尔自治区', '壮族自治区', '回族自治区', '自治区', '省', '市', '地区', '盟'];
+  for (const t of tails) {
+    if (v.endsWith(t) && v.length > t.length) { v = v.slice(0, -t.length); break; }
+  }
+  return v;
+}
+function wxEmojiByText(t) {
+  t = String(t || '');
+  if (/雷/.test(t)) return '⛈️';
+  if (/雪|冰雹/.test(t)) return '❄️';
+  if (/雨/.test(t)) return '🌧️';
+  if (/雾|霾|沙|尘/.test(t)) return '🌫️';
+  if (/阴/.test(t)) return '☁️';
+  if (/云/.test(t)) return '⛅';
+  if (/晴/.test(t)) return '☀️';
+  return '🌤️';
+}
+function renderDaysAmap(items) {
+  const box = el('dayRow');
+  if (!box || !Array.isArray(items) || !items.length) return;
+  const names = ['今天', '明天', '后天'];
+  box.innerHTML = items.slice(0, 3).map((d, i) => {
+    const day = d.dayTemp || '--';
+    const night = d.nightTemp || '--';
+    const text = d.dayWeather || '多云';
+    return `<div class="dayItem">${names[i] || '未来'}<b>${night}~${day}°</b>` +
+           `<span class="dayWx">${wxEmojiByText(text)} ${text}</span></div>`;
+  }).join('');
+}
+function renderWxTipGeo(w) {
+  const box = el('wxTip');
+  if (!box) return;
+  const text = String(w.text || '');
+  const temp = parseFloat(w.temp);
+  let msg = '天气不错，跑单顺路';
+  if (/雨/.test(text)) msg = '有雨，餐箱记得盖好';
+  else if (/雪|冰雹/.test(text)) msg = '有雪，路上慢一点';
+  else if (/雾|霾|沙|尘/.test(text)) msg = '能见度低，骑车注意';
+  else if (!isNaN(temp) && temp <= 4) msg = '气温低，手容易冻僵，带手套';
+  else if (!isNaN(temp) && temp >= 33) msg = '天热，记得补水';
+  box.textContent = msg;
+}
+const GEO_CACHE_KEY = 'ylct_geo_cache_v1';
+function readGeoCache() {
+  try {
+    const j = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || 'null');
+    return (j && j.city && j.weather) ? j : null;
+  } catch (e) { return null; }
+}
+function saveGeoCache(j) {
+  try {
+    localStorage.setItem(GEO_CACHE_KEY, JSON.stringify({
+      city: j.city, province: j.province, district: j.district || '',
+      adcode: j.adcode || '', location: j.location || {},
+      weather: j.weather, source: j.source || '', ts: Date.now()
+    }));
+  } catch (e) {}
+}
+let geoSeq = 0;
+let wallpaperCity = '';
+let dynSlides = [];
+let dynTimer = null;
+window.__heroLocked = false;
+
+function preloadImage(url, timeout) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    let done = false;
+    const finish = (ok) => { if (!done) { done = true; resolve(ok); } };
+    img.onload = () => finish(true);
+    img.onerror = () => finish(false);
+    img.src = url;
+    setTimeout(() => finish(false), timeout || 5000);
+  });
+}
+
+function startDynCarousel(city) {
+  clearInterval(dynTimer);
+  if (!dynSlides.length) return;
+  let i = dynSlides.findIndex(s => s.classList.contains('on'));
+  if (i < 0) i = 0;
+  dynTimer = setInterval(() => {
+    if (document.hidden) return;
+    if (document.body.classList.contains('touring')) return;
+    const home = el('home');
+    if (!home || home.classList.contains('hidden')) return;
+    dynSlides[i].classList.remove('on');
+    i = (i + 1) % dynSlides.length;
+    dynSlides[i].classList.add('on');
+    const cap = el('heroCap');
+    if (cap) cap.textContent = city + ' · 图源 Bing';
+    const amb = el('ambient');
+    if (amb) amb.style.backgroundImage = dynSlides[i].style.backgroundImage;
+  }, 5000);
+}
+
+async function loadWallpaper(city, province) {
+  city = String(city || '').trim();
+  if (!city || wallpaperCity === city) return;
+  try {
+    const r = await fetch('/api/wallpapers?city=' + encodeURIComponent(city), { cache: 'no-store' });
+    if (!r.ok) return;
+    const j = await r.json();
+    const images = (j.images || []).filter(x => x && x.url);
+    if (!images.length) return;
+    const box = el('heroSlides');
+    if (!box) return;
+    // 先等一张能加载的图，避免切过去时白屏；其余图片并行加载
+    let start = -1;
+    for (let i = 0; i < images.length; i++) {
+      if (await preloadImage(images[i].url, 6000)) { start = i; break; }
+    }
+    if (start < 0) return;
+    const ordered = images.slice(start).concat(images.slice(0, start));
+    clearInterval(dynTimer);
+    box.querySelectorAll('.slide.dyn').forEach(x => x.remove());
+    dynSlides = [];
+    const frag = document.createDocumentFragment();
+    ordered.forEach((img, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'slide dyn';
+      slide.dataset.cap = city + ' · 城市风景';
+      slide.style.backgroundImage = 'url("' + img.url + '")';
+      frag.appendChild(slide);
+      dynSlides.push(slide);
+    });
+    box.appendChild(frag);
+    box.querySelectorAll('.slide').forEach(s => s.classList.remove('on'));
+    dynSlides[0].classList.add('on');
+    wallpaperCity = city;
+    const cap = el('heroCap');
+    if (cap) cap.textContent = city + ' · 图源 Bing';
+    const amb = el('ambient');
+    if (amb) amb.style.backgroundImage = dynSlides[0].style.backgroundImage;
+    window.__heroLocked = true;
+    startDynCarousel(city);
+  } catch (e) { /* 壁纸失败不影响主功能 */ }
+}
+function applyGeo(j) {
+  if (!j || !j.weather) return;
+  const city = shortPlace(j.city);
+  const province = shortPlace(j.province);
+  const label = city && province && city !== province ? city + ' · ' + province : (city || province || '当前位置');
+  if (el('heroCity')) el('heroCity').textContent = label;
+  const w = j.weather;
+  const temp = String(w.temp == null ? '--' : w.temp);
+  if (el('wxTemp')) el('wxTemp').textContent = temp === '--' ? '--' : temp + '°';
+  if (el('wxIcon')) el('wxIcon').textContent = wxEmojiByText(w.text);
+  if (el('wxDesc')) el('wxDesc').textContent = w.text || '—';
+  if (el('wxHum')) el('wxHum').textContent = '湿度 ' + (w.humidity || '--') + '%';
+  if (el('wxWind')) el('wxWind').textContent = '风 ' + (w.wind || '--');
+  renderDaysAmap(w.forecast || []);
+  renderWxTipGeo(w);
+  window.__geoPending = false;
+  saveGeoCache(j);
+  if (city) loadWallpaper(city, province);
+}
+async function loadGeo(lat, lng) {
+  const seq = ++geoSeq;
   try {
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 4500);
-    const r = await fetch('https://wttr.in/Jinan?format=j1', { signal: ctrl.signal, cache: 'no-store' });
+    const timer = setTimeout(() => ctrl.abort(), 12000);
+    let q = '';
+    if (lat != null && lng != null) q = '?lat=' + encodeURIComponent(lat) + '&lng=' + encodeURIComponent(lng);
+    const r = await fetch('/api/geo' + q, { signal: ctrl.signal, cache: 'no-store' });
     clearTimeout(timer);
     if (!r.ok) return;
     const j = await r.json();
-    const cur = j.current_condition && j.current_condition[0];
-    if (!cur) return;
-    el('wxTemp').textContent = cur.temp_C + '°';
-    el('wxIcon').textContent = wxIcon(cur.weatherCode);
-    el('wxDesc').textContent = wxText(cur.weatherCode);
-    el('wxHum').textContent = '湿度 ' + cur.humidity + '%';
-    el('wxWind').textContent = '风 ' + cur.windspeedKmph + ' km/h';
-    if (Array.isArray(j.weather)) renderDays(j.weather.slice(0, 3));
-    renderWxTip(cur);
-  } catch (e) { /* 离线就保留默认值 */ }
+    if (seq === geoSeq && j.ok) applyGeo(j);
+  } catch (e) { /* 保留默认 */ }
 }
-loadWeather();
+function requestGeo(showToast) {
+  if (!navigator.geolocation) { if (showToast !== false) toast('这台设备不支持定位'); return; }
+  if (showToast !== false) toast('正在定位…');
+  navigator.geolocation.getCurrentPosition(
+    (p) => loadGeo(p.coords.latitude, p.coords.longitude),
+    (e) => {
+      if (showToast !== false) toast('定位没成功，先用网络位置');
+      if (!geoApplied) loadGeo();
+    },
+    { timeout: 8000, maximumAge: 600000, enableHighAccuracy: false }
+  );
+}
+let geoApplied = false;
+const _applyGeo = applyGeo;
+applyGeo = function (j) {
+  geoApplied = true;
+  _applyGeo(j);
+};
+function initGeo() {
+  const city = el('heroCity');
+  if (city) city.onclick = () => requestGeo(true);
+
+  // 有缓存：先秒显上次城市，再后台刷新天气；绝不再次请求定位权限
+  const cached = readGeoCache();
+  if (cached) {
+    applyGeo(cached);
+    if (cached.location && cached.location.lat != null && cached.location.lng != null) {
+      loadGeo(cached.location.lat, cached.location.lng);
+    } else {
+      loadGeo();
+    }
+    return;
+  }
+
+  // 第一次进入才请求浏览器定位；允许后记住城市
+  if (!navigator.geolocation) {
+    loadGeo();
+  } else {
+    setTimeout(() => requestGeo(false), 200);
+    setTimeout(() => { if (!geoApplied) loadGeo(); }, 7000);
+  }
+  setTimeout(() => {
+    if (!geoApplied && el('heroCity')) {
+      el('heroCity').textContent = '定位失败 · 点此重试';
+      if (el('wxDesc')) el('wxDesc').textContent = '定位失败';
+    }
+  }, 15000);
+}
+initGeo();
 /* 对话页环境提示：识别不可用时明确告诉用户怎么走 */
 (function envNoteCheck() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -2679,27 +4808,37 @@ loadWeather();
   p.addEventListener('input', () => {
     const v = p.value.trim();
     if (v.includes('://')) return;          // 链接不是小区名，忽略
-    if (v) { place.name = v; updatePreview(); saveLast(); }
+    place.name = v;
+    updatePreview(); saveLast();
   });
   p.addEventListener('change', () => { if (p.value.trim()) rememberPlace(p.value.trim()); saveLast(); });
-  b.addEventListener('input', () => { const v = b.value.trim(); if (v) { addr.b = v; updatePreview(); saveLast(); } });
-  r.addEventListener('input', () => { const v = r.value.trim(); if (v) { addr.r = v; updatePreview(); saveLast(); } });
+  b.addEventListener('input', () => { addr.b = b.value.trim(); updatePreview(); saveLast(); });
+  r.addEventListener('input', () => { addr.r = r.value.trim(); updatePreview(); saveLast(); });
   f.addEventListener('input', () => {
     const v = Number(String(f.value).replace(/\D/g, ''));
-    if (v > 0) { currentFloor = v; syncRoomToFloor(); renderFloorChips();
-renderTodayChip(); updatePreview(); saveLast(); }
+    currentFloor = v > 0 ? v : 0;
+    if (v > 0) syncRoomToFloor();
+    renderFloorChips();
+    renderTodayChip();
+    updatePreview();
+    saveLast();
   });
 })();
 
-el('previewPlay').onclick = () => speak(previewPlain[0], true);
-el('previewText').onclick = () => speak(previewPlain[0], true);
-el('previewText2').onclick = () => speak(previewPlain[1], true);
+function playDeliverPreview(i) {
+  if (!previewPlain[i] || previewPlain[i].indexOf('填写') === 0) { toast('先填一下地址/楼层'); return; }
+  speak(previewPlain[i], true);
+}
+el('previewPlay').onclick = () => playDeliverPreview(0);
+el('previewText').onclick = () => playDeliverPreview(0);
+el('previewText2').onclick = () => playDeliverPreview(1);
 
 (function bindPickupPage() {
   el('pkPhone').value = pick.phone;
   el('pkCode').value = pick.code;
   el('pkPhone').addEventListener('input', () => { pick.phone = el('pkPhone').value; updatePickupPreview(); saveLast(); });
-  el('pkCode').addEventListener('input', () => { pick.code = el('pkCode').value.trim() || '38'; updatePickupPreview(); saveLast(); });
+  el('pkCode').addEventListener('input', () => { pick.code = el('pkCode').value.trim(); updatePickupPreview(); saveLast(); });
+  if (el('pkAddr')) el('pkAddr').addEventListener('input', () => { pick.addr = el('pkAddr').value.trim(); saveLast(); });
 })();
 
 el('modeDeliver').onclick = goAddr;                       // 送餐：先去填地址
@@ -2713,9 +4852,13 @@ el('modePickup').onclick = goPickup;                       // 取餐：先去填
 el('pickupBack').onclick = backFromPickup;
 el('pickupDone').onclick = () => enterApp('pickup', false);
 el('pickupSkip').onclick = () => enterApp('pickup', false);
-el('pkPlay').onclick = () => speak(pkPlain[0], true);
-el('pkPreview2').onclick = () => speak(pkPlain[1], true);
-el('pkPreview').onclick = () => speak(pkPlain[0], true);
+function playPickupPreview(i) {
+  if (!pkPlain[i] || pkPlain[i].indexOf('填写') === 0) { toast('先填手机尾号/取餐码'); return; }
+  speak(pkPlain[i], true);
+}
+el('pkPlay').onclick = () => playPickupPreview(0);
+el('pkPreview2').onclick = () => playPickupPreview(1);
+el('pkPreview').onclick = () => playPickupPreview(0);
 el('addrBack').onclick = backHome;
 el('addrDone').onclick = () => enterApp('deliver', false);
 el('addrSkip').onclick = () => enterApp('deliver', false);
@@ -2726,8 +4869,20 @@ if (el('pastePickupBtn')) el('pastePickupBtn').onclick = pastePickup;
 if (el('pasteCancel')) el('pasteCancel').onclick = () => el('pasteOverlay').classList.remove('on');
 el('pasteOk').onclick = () => {
   const txt = el('pasteBox').value.trim();
+  const mode = el('pasteOverlay').dataset.mode || 'deliver';
   el('pasteOverlay').classList.remove('on');
-  if (txt) applyOrder(parseOrder(txt));
+  if (!txt) return;
+  if (mode === 'pickup') {
+    const pk = parsePickup(txt);
+    const order = parseOrder(txt);
+    const syncDelivery = !!(order && (order.place || order.b || order.r || order.phone));
+    if (syncDelivery) applyOrder(order);
+    if (pk) applyPickup(pk);
+    if (!pk && !syncDelivery) toast('没识别出取餐信息，手动补一下');
+    else if (syncDelivery) toast('取餐信息已识别，地址/手机号已同步到送餐');
+  } else {
+    applyOrder(parseOrder(txt));
+  }
 };
 el('placeCancel').onclick = () => el('placeOverlay').classList.remove('on');
 el('placeOk').onclick = savePlace;
@@ -2785,6 +4940,13 @@ renderReplies();
 renderRecent();
 renderFloorChips();
 renderTodayChip();
+renderRecentAddresses();
+renderRecentPickup();
+renderPlaceHint();
+renderShopHint();
+bindAddressAutofill();
+bindAuthUI();
+initAuth();
 if (restored) {
   el('homeP').value = String(place.name || '').includes('://') ? '' : place.name;
   el('homeB').value = addr.b;
@@ -2792,12 +4954,17 @@ if (restored) {
   el('homeF').value = currentFloor > 10 ? currentFloor : '';
   el('pkPhone').value = pick.phone;
   el('pkCode').value = pick.code;
+  if (el('pkShop')) el('pkShop').value = pick.shop;
+    if (el('pkAddr')) el('pkAddr').value = pick.addr || '';
 }
 if (location.hash === '#app') enterApp(mode, false);
 if (location.hash === '#addr') goAddr();
 if (location.hash === '#tour') startTour();
 if (location.hash === '#sign') openSign();
 if (location.hash === '#pickup') goPickup();
+if (location.hash === '#account') openAccount('login');
+if (location.hash === '#rec') openRecords();
+if (location.hash === '#call') { enterApp(mode, false); setTimeout(openCall, 360); }
 if (location.hash === '#say') { enterApp(mode, false); setTimeout(openSay, 400); }
 </script>
 </body>
