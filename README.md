@@ -109,10 +109,10 @@ tests/test_api.py          API 回归测试
 
 | 版本 | 协作者 | 主要工作 |
 |---|---|---|
-| `v0.1.0` | [@hejioxue](https://github.com/hejioxue) | 初始「传声」原型：语音识别、话术、TTS、大字牌、演示 |
-| `v0.1.2` | [@IREXS-JPG](https://github.com/IREXS-JPG) | 模型接入与音色选型、数字读法规则（多轮迭代）、男/女声切换、端口占用修复 |
-| `v0.1.3` | [@NikaL-Li](https://github.com/NikaL-Li) | 产品化整合：登录/云同步、订单记录/地址簿、高德/壁纸、OCR、双地址、部署 |
-| `v1.0.0` | @hejioxue、@IREXS-JPG、@NikaL-Li | 合并、文档、音频竞态修复、UI 收敛、正式发布 |
+| `v0.1.0` | 焦龙心 · [@hejioxue](https://github.com/hejioxue) | 初始「传声」原型：语音识别、话术、TTS、大字牌、演示 |
+| `v0.1.2` | 邹昊龙 · [@IREXS-JPG](https://github.com/IREXS-JPG) | 模型接入与音色选型、数字读法规则（多轮迭代）、男/女声切换、端口占用修复 |
+| `v0.1.3` | 黎智诚 · [@NikaL-Li](https://github.com/NikaL-Li) | 接手初版，整体改进/优化/debug；产品化、登录/云同步、订单/地址簿、高德/壁纸、OCR、双地址、云服务器部署、网络与公网映射 |
+| `v1.0.0` | 焦龙心、邹昊龙、黎智诚 | 合并、文档、音频竞态修复、UI 收敛、正式发布 |
 
 完整说明见 [项目介绍与使用说明](docs/项目介绍与使用说明.md)、[CHANGELOG.md](CHANGELOG.md)、[AUTHORS.md](AUTHORS.md)、[开发历程](docs/开发历程.md)。
 
