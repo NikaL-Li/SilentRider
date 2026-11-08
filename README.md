@@ -10,16 +10,18 @@
 **在线体验** · [https://ylct.lzc2006.cn/](https://ylct.lzc2006.cn/)  
 **备用入口** · [https://ylct.lzc2006.cn:8443/](https://ylct.lzc2006.cn:8443/)
 
+**完整文档** · [项目介绍与使用说明](docs/项目介绍与使用说明.md)
+
 ![译路畅通 首页](docs/screenshots/home.jpg)
 
 ---
 
-## 为什么做 SilentRider
+## 为什么做译路畅通
 
 配送骑手每天要打几十个电话：确认楼栋、找门禁、请人按电梯、解释“我是听障骑手”。
 对听障骑手来说，电话不是沟通，而是障碍。
 
-SilentRider 把这件事拆成三步：
+译路畅通把这件事拆成三步：
 
 1. **听对方说**：语音识别转成大字；
 2. **替我说**：点一句预设话术，TTS 念给对方听；
@@ -110,9 +112,9 @@ tests/test_api.py          API 回归测试
 | `v0.1.0` | [@hejioxue](https://github.com/hejioxue) | 初始「传声」原型：语音识别、话术、TTS、大字牌、演示 |
 | `v0.1.2` | [@IREXS-JPG](https://github.com/IREXS-JPG) | 模型接入与音色选型、数字读法规则（多轮迭代）、男/女声切换、端口占用修复 |
 | `v0.1.3` | [@NikaL-Li](https://github.com/NikaL-Li) | 产品化整合：登录/云同步、订单记录/地址簿、高德/壁纸、OCR、双地址、部署 |
-| `v1.0.0` | 译路畅通 Team | 合并、文档、音频竞态修复、UI 收敛、正式发布 |
+| `v1.0.0` | @hejioxue、@IREXS-JPG、@NikaL-Li | 合并、文档、音频竞态修复、UI 收敛、正式发布 |
 
-完整说明见 [CHANGELOG.md](CHANGELOG.md)、[AUTHORS.md](AUTHORS.md)、[开发历程](docs/开发历程.md)。
+完整说明见 [项目介绍与使用说明](docs/项目介绍与使用说明.md)、[CHANGELOG.md](CHANGELOG.md)、[AUTHORS.md](AUTHORS.md)、[开发历程](docs/开发历程.md)。
 
 ## 测试
 
