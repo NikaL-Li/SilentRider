@@ -1,16 +1,16 @@
-# SilentRider · 译路畅通
+# 译路畅通
 
-> **SilentRider 是为听障配送骑手打造的无障碍沟通工具。**
+> **译路畅通（英文代号 SilentRider）是为听障配送骑手打造的无障碍沟通工具。**
 > 内置取餐、送餐场景预设话术，支持文字转语音、大字举牌展示，帮助骑手无需通话，和商家、顾客顺畅沟通。
 
-[![Python](https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.10-3776AB)](https://www.python.org/)
 [![PWA](https://img.shields.io/badge/PWA-offline%20ready-5A0FC8?logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **在线体验** · [https://ylct.lzc2006.cn/](https://ylct.lzc2006.cn/)  
 **备用入口** · [https://ylct.lzc2006.cn:8443/](https://ylct.lzc2006.cn:8443/)
 
-![SilentRider 首页](docs/screenshots/home.png)
+![译路畅通 首页](docs/screenshots/home.jpg)
 
 ---
 
@@ -110,7 +110,7 @@ tests/test_api.py          API 回归测试
 | `v0.1.0` | [@hejioxue](https://github.com/hejioxue) | 初始「传声」原型：语音识别、话术、TTS、大字牌、演示 |
 | `v0.1.2` | [@IREXS-JPG](https://github.com/IREXS-JPG) | 模型接入与音色选型、数字读法规则（多轮迭代）、男/女声切换、端口占用修复 |
 | `v0.1.3` | [@NikaL-Li](https://github.com/NikaL-Li) | 产品化整合：登录/云同步、订单记录/地址簿、高德/壁纸、OCR、双地址、部署 |
-| `v1.0.0` | SilentRider Team | 合并、文档、音频竞态修复、UI 收敛、正式发布 |
+| `v1.0.0` | 译路畅通 Team | 合并、文档、音频竞态修复、UI 收敛、正式发布 |
 
 完整说明见 [CHANGELOG.md](CHANGELOG.md)、[AUTHORS.md](AUTHORS.md)、[开发历程](docs/开发历程.md)。
 
@@ -159,4 +159,4 @@ GitHub Actions 可手动触发；当前账号 billing 受限时以本地测试�
 
 ---
 
-**如果这个项目对你有帮助，欢迎 Star；也欢迎把无障碍体验建议提成 Issue。**
+**译路畅通 · 让听障骑手少一通电话，多一份确定性。**
