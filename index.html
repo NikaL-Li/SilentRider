@@ -1960,10 +1960,20 @@ pickVoice();
 const ttsCache = new Map();
 let ttsAudio = null;
 let ttsReady = null;
+let audioSeq = 0;   // 每次点击递增；只有最新一次允许播放，避免异步请求叠加
+
+function stopCurrentAudio() {
+  try {
+    if (ttsAudio) { ttsAudio.pause(); ttsAudio.currentTime = 0; ttsAudio = null; }
+  } catch (e) {}
+  try { speechSynthesis.cancel(); } catch (e) {}
+  try { if (loudSrc) { loudSrc.stop(); loudSrc = null; } } catch (e) {}
+}
 
 async function speak(text, recall) {
+  const seq = ++audioSeq;
   if (!recall) pushHistory(text);
-  try { if (ttsAudio) { ttsAudio.pause(); ttsAudio = null; } } catch (e) {}
+  stopCurrentAudio();
 
   try {
     const ck = currentVoice() + '|' + text;
@@ -1974,14 +1984,22 @@ async function speak(text, recall) {
       url = URL.createObjectURL(await r.blob());
       if (ttsCache.size < 60) ttsCache.set(ck, url);
     }
+    if (seq !== audioSeq) return;   // 已被更新的点击取代
     const a = new Audio(url);
     ttsAudio = a;
+    a.onended = () => { if (ttsAudio === a) ttsAudio = null; };
     await a.play();
+    if (seq !== audioSeq) {
+      try { a.pause(); } catch (e) {}
+      if (ttsAudio === a) ttsAudio = null;
+      return;
+    }
     return;
   } catch (e) {
     // 服务端暂时没通，本次用浏览器语音，下次再试
   }
-  speakLocal(text);
+  if (seq !== audioSeq) return;
+  speakLocal(text, seq);
 }
 
 const CN_DIGITS = ['零','一','二','三','四','五','六','七','八','九'];
@@ -1999,7 +2017,8 @@ function cnDigits(text) {
     return s.split('').map(c => CN_DIGITS[+c]).join('');
   });
 }
-function speakLocal(text) {
+function speakLocal(text, seq) {
+  if (seq !== undefined && seq !== audioSeq) return;
   try {
     speechSynthesis.cancel();
     text = cnDigits(text);   // 数字逐位读：5025→五零二五
@@ -2011,6 +2030,7 @@ function speakLocal(text) {
       const local = speechSynthesis.getVoices().find(v => /zh/i.test(v.lang) && v.localService);
       if (!local) return;
       zhVoice = local; updateVoiceTip();
+      if (seq !== undefined && seq !== audioSeq) return;
       const u2 = new SpeechSynthesisUtterance(text);
       u2.lang = 'zh-CN'; u2.rate = 1; u2.pitch = voiceState.gender === 'male' ? 0.85 : 1.05; u2.voice = local;
       speechSynthesis.speak(u2);
@@ -3504,20 +3524,24 @@ async function ttsUrl(text) {
 
 async function playLoud(text) {
   if (!text) return;
+  const seq = ++audioSeq;
   pushHistory(text);
+  stopCurrentAudio();
   try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
   let url;
   try {
     url = await ttsUrl(text);
   } catch (e) {
-    speak(text, true);
+    if (seq === audioSeq) speak(text, true);
     return;
   }
+  if (seq !== audioSeq) return;
   try {
     if (!loudCtx) loudCtx = new (window.AudioContext || window.webkitAudioContext)();
     if (loudCtx.state === 'suspended') await loudCtx.resume();
     const buf = await (await fetch(url)).arrayBuffer();
     const audio = await loudCtx.decodeAudioData(buf.slice(0));
+    if (seq !== audioSeq) return;
     try { if (loudSrc) loudSrc.stop(); } catch (e) {}
     const src = loudCtx.createBufferSource();
     src.buffer = audio;
@@ -3534,14 +3558,20 @@ async function playLoud(text) {
     comp.connect(loudCtx.destination);
     src.start();
     loudSrc = src;
+    src.onended = () => { if (loudSrc === src) loudSrc = null; };
   } catch (e) {
+    if (seq !== audioSeq) return;
     try {
       const a = new Audio(url);
       a.volume = 1;
       ttsAudio = a;
       await a.play();
+      if (seq !== audioSeq) {
+        try { a.pause(); } catch (e) {}
+        if (ttsAudio === a) ttsAudio = null;
+      }
     } catch (e2) {
-      speak(text, true);
+      if (seq === audioSeq) speak(text, true);
     }
   }
 }

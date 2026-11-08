@@ -1,0 +1,32 @@
+name: Bug 报告
+description: 描述一个可复现的问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: 发生了什么
+      description: 页面/接口/部署环境
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 打开...
+        2. 点击...
+        3. 看到...
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: 环境
+      placeholder: iPhone 15 / Safari / 线上域名
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志或截图
+      description: 请先抹掉手机号、地址、密钥
