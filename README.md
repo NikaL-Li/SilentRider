@@ -48,16 +48,16 @@ SilentRider 把这件事拆成三步：
 
 ## 技术架构
 
-```mermaid
-flowchart LR
-    B[浏览器 / PWA] -->|HTTPS| CF[Cloudflare]
-    CF --> T[Cloudflare Tunnel]
-    T --> S[Python stdlib server]
-    S --> DB[(SQLite)]
-    S --> AMAP[高德 Web 服务]
-    S --> OCR[腾讯云 OCR]
-    S --> LOCAL[本地 Tesseract 兜底]
-    S --> BING[Bing 图片代理]
+```text
+浏览器 / PWA
+   │ HTTPS
+   ▼
+Cloudflare ──► Tunnel ──► Python stdlib server
+                              ├── SQLite（用户/订单/地址簿）
+                              ├── 高德 Web 服务（定位/天气）
+                              ├── 腾讯云 OCR
+                              ├── 本地 Tesseract（兜底）
+                              └── Bing 图片代理（城市壁纸）
 ```
 
 - 前端保持**单文件、无构建步骤**，方便弱网/离线分发；
