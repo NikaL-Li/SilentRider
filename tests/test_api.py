@@ -65,6 +65,8 @@ def main():
         "YLCT_SMS_PROVIDER": "none",
         "YLCT_CALL_WEBHOOK": "",
         "YLCT_SMS_DEBUG": "0",
+        # 这套测试明确模拟 Nginx/反代场景，需显式信任转发头
+        "YLCT_TRUST_PROXY": "1",
     })
     proc = subprocess.Popen(
         [sys.executable, SERVER, "--host", "127.0.0.1", "--port", str(port)],

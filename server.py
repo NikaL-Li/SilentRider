@@ -106,7 +106,7 @@ DB_PATH = os.path.abspath(
 
 COOKIE_NAME = "ylct_sid"
 COOKIE_SECURE_MODE = (os.environ.get("YLCT_COOKIE_SECURE", "auto").strip().lower() or "auto")
-TRUST_PROXY = _env_bool("YLCT_TRUST_PROXY", True)
+TRUST_PROXY = _env_bool("YLCT_TRUST_PROXY", False)
 
 SMS_PROVIDER = (os.environ.get("YLCT_SMS_PROVIDER", "none").strip().lower() or "none")
 SMS_WEBHOOK = os.environ.get("YLCT_SMS_WEBHOOK", "").strip()
@@ -115,7 +115,7 @@ SMS_DEBUG = _env_bool("YLCT_SMS_DEBUG", False)
 
 CALL_WEBHOOK = os.environ.get("YLCT_CALL_WEBHOOK", "").strip()
 CALL_TOKEN = os.environ.get("YLCT_CALL_TOKEN", "").strip()
-CALL_REQUIRE_LOGIN = _env_bool("YLCT_CALL_REQUIRE_LOGIN", False)
+CALL_REQUIRE_LOGIN = _env_bool("YLCT_CALL_REQUIRE_LOGIN", True)
 
 # ── 高德 / OCR / 壁纸 ──────────────────────────────────────
 AMAP_KEY = os.environ.get("AMAP_KEY", "").strip()
@@ -1246,9 +1246,9 @@ def _tesseract_text(path):
 STATIC_EXT = {
     ".html", ".htm", ".css", ".js", ".mjs", ".json", ".webmanifest",
     ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".ico",
-    ".woff", ".woff2", ".ttf", ".otf", ".txt", ".mp3", ".wav",
+    ".woff", ".woff2", ".ttf", ".otf", ".mp3", ".wav",
 }
-BLOCKED_PARTS = {"data", "deploy", "docs", "tests", ".git", ".dsh-uploads", "backup"}
+BLOCKED_PARTS = {"data", "deploy", "docs", "tests", ".git", ".dsh-uploads", "backup", "ocr-service"}
 
 
 class Handler(BaseHTTPRequestHandler):

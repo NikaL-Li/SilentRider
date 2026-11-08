@@ -30,7 +30,7 @@ mkdir -p "$APP" "$DATA"
 chmod 700 "$DATA"
 
 echo "==> 复制程序到 $APP（保留已有 .env 和 data）"
-tar --exclude=./data --exclude=./.env -C "$SRC" -cf - . | tar -C "$APP" -xf -
+tar --exclude=./data --exclude=./.env --exclude=./ocr-service/ocr_token.txt -C "$SRC" -cf - . | tar -C "$APP" -xf -
 
 if [ ! -f "$APP/.env" ]; then
   cp "$APP/deploy/ylct.env.example" "$APP/.env"
